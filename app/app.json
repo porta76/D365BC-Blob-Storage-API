@@ -1,0 +1,27 @@
+{
+  "id": "8047d691-d376-4570-bfe6-9e0d785b8f32",
+  "name": "Azure Blob Storage API",
+  "publisher": "SimonOfHH",
+  "version": "0.0.0.1",
+  "brief": "Makes the Azure Blob API easily accessible",
+  "description": "Provides a set of AL functionality and Helper libraries to make use of Azure Blob Storage in MSDyn365BC",
+  "privacyStatement": "http://www.xxx.com",
+  "EULA": "http://www.xxx.com",
+  "help": "http://www.xxx.com",
+  "url": "http://www.xxx.com",
+  "logo": "res/logo/azure-half.png",
+  "dependencies": [],
+  "screenshots": [],
+  "features": ["TranslationFile"],
+  "platform": "17.0.0.0",
+  "application": "17.0.0.0",
+  "idRanges": [
+    {
+      "from": 89000,
+      "to": 89149
+    }
+  ],
+  "contextSensitiveHelpUrl": "https://app.com/help/",
+  "showMyCode": true,
+  "runtime": "6.0"
+}

@@ -1,0 +1,739 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="en-US" original="Azure Blob Storage API">
+    <body>
+      <group id="body">
+        <trans-unit id="Table 3023325585 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Blob Storage Connection</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Blob Storage Connection - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3023325585 - Field 3004954119 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Code</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Blob Storage Connection - Field Code - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3023325585 - Field 3461834954 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Blob Storage Connection - Field Description - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3023325585 - Field 2184249729 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Storage Account Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Blob Storage Connection - Field Storage Account Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3023325585 - Field 3207683269 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Authorization Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Blob Storage Connection - Field Authorization Type - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3023325585 - Field 839089114 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Secret</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Blob Storage Connection - Field Secret - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3023325585 - Field 3687300662 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>API Version</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Blob Storage Connection - Field API Version - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3023325585 - Field 1774875551 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Source Container Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Blob Storage Connection - Field Source Container Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 3023325585 - Field 1305033227 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Target Container Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Blob Storage Connection - Field Target Container Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1160334080 - Field 883711285 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Entry No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container - Field Entry No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1160334080 - Field 2961552353 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container - Field Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1160334080 - Field 771523618 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Last-Modified</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container - Field Last-Modified - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1160334080 - Field 2796467918 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>LeaseStatus</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container - Field LeaseStatus - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1160334080 - Field 3159815827 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>LeaseState</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container - Field LeaseState - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1160334080 - Field 2552636530 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>DefaultEncryptionScope</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container - Field DefaultEncryptionScope - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1160334080 - Field 894107473 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>DenyEncryptionScopeOverride</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container - Field DenyEncryptionScopeOverride - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1160334080 - Field 2808392988 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>HasImmutabilityPolicy</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container - Field HasImmutabilityPolicy - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1160334080 - Field 2791363642 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>HasLegalHold</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container - Field HasLegalHold - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1160334080 - Field 2274610406 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>XML Value</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container - Field XML Value - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 1160334080 - Field 1090808402 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>URI</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container - Field URI - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1160334080 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1160334080 - Control 2961552353 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container - Control Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1160334080 - Control 771523618 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container - Control Last-Modified - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1160334080 - Control 1017087755 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container - Control DefaultEntryptionScope - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1160334080 - Control 894107473 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container - Control DenyEncryptionScopeOverride - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1160334080 - Control 2808392988 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container - Control HasImmutabilityPolicy - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1160334080 - Control 2791363642 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container - Control HasLegalHold - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1160334080 - Control 3159815827 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container - Control LeaseState - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1160334080 - Control 2796467918 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container - Control LeaseStatus - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 1160334080 - Action 3488727383 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Entry Details</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container - Action ShowEntryDetails - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 1160334080 - Action 3488727383 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container - Action ShowEntryDetails - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 368270263 - Field 883711285 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Entry No.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container Content - Field Entry No. - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 368270263 - Field 2039748839 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Parent Directory</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container Content - Field Parent Directory - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 368270263 - Field 1789400218 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Level</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container Content - Field Level - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 368270263 - Field 2981864456 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Full Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container Content - Field Full Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 368270263 - Field 2961552353 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container Content - Field Name - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 368270263 - Field 3893835339 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Creation-Time</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container Content - Field Creation-Time - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 368270263 - Field 771523618 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Last-Modified</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container Content - Field Last-Modified - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 368270263 - Field 995333756 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Content-Length</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container Content - Field Content-Length - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 368270263 - Field 782056840 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Content-Type</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container Content - Field Content-Type - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 368270263 - Field 2338894653 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>BlobType</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container Content - Field BlobType - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 368270263 - Field 2274610406 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>XML Value</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container Content - Field XML Value - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 368270263 - Field 1090808402 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>URI</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Container Content - Field URI - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 368270263 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Container Content</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container Content - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 368270263 - Control 2039748839 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container Content - Control Parent Directory - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 368270263 - Control 1789400218 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container Content - Control Level - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 368270263 - Control 2961552353 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container Content - Control Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 368270263 - Control 3893835339 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container Content - Control Creation-Time - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 368270263 - Control 771523618 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container Content - Control Last-Modified - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 368270263 - Control 995333756 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container Content - Control Content-Length - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 368270263 - Control 782056840 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container Content - Control Content-Type - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 368270263 - Control 2338894653 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container Content - Control BlobType - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 368270263 - Action 3488727383 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Show Entry Details</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container Content - Action ShowEntryDetails - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 368270263 - Action 3488727383 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>xxx</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Container Content - Action ShowEntryDetails - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Table 2846722167 - Field 3348941625 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Key</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Temp. Sort Table - Field Key - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Table 2846722167 - Field 1131619133 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Value</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Table AZBSA Temp. Sort Table - Field Value - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 571558036 - NamedType 2190545488" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1:%2</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Key; %2 = Value</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Authorization - NamedType KeyValuePairLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 571558036 - Method 1775191576 - NamedType 1444867455" size-unit="char" translate="yes" xml:space="preserve">
+          <source>SharedKey %1:%2</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Account Name; %2 = Calculated Signature</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Authorization - Method GetSharedKeySignature - NamedType SignaturePlaceHolderLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3744095123 - Method 4186216621 - NamedType 3201883211" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Could not create container %1.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Container Name</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Blob Storage API - Method CreateContainer - NamedType OperationNotSuccessfulErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 3744095123 - Method 140963445 - NamedType 3201883211" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Could not upload %1 to %2</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Blob Name; %2 = Container Name</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Blob Storage API - Method UploadBlobIntoContainer - NamedType OperationNotSuccessfulErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 2971821442 - Method 2216964547 - NamedType 3913890867" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&lt;Weekday Text,3&gt;, &lt;Day&gt; &lt;Month Text,3&gt; &lt;Year4&gt; &lt;Hours24,2&gt;:&lt;Minutes,2&gt;:&lt;Seconds,2&gt;</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Format Helper - Method GetRfc1123DateTime - NamedType TargetDateTimeFormatLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 2971821442 - Method 2216964547 - NamedType 1013400993" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 GMT</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Correctly formatted Timestamp</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Format Helper - Method GetRfc1123DateTime - NamedType Rfc1123FormatLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1662200598 - NamedType 1185840565" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The result set is empty</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Helper Library - NamedType ResultCollectionEmptyMsg</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1662200598 - Method 1796094455 - NamedType 2657891440" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Error reading Response as XML.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Helper Library - Method GetXmlDocumentFromResponse - NamedType ReadingAsXmlErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1662200598 - Method 2616048138 - NamedType 874023154" size-unit="char" translate="yes" xml:space="preserve">
+          <source>https://%1.blob.core.windows.net</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Storage Account Name</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Helper Library - Method ConstructUrl - NamedType BlobStorageBaseUrlLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1662200598 - Method 2616048138 - NamedType 2082125449" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1/%2?restype=container%3</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Base URL; %2 = Container Name ; %3 = List-extension (if applicable) ;%4 = SaS Token</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Helper Library - Method ConstructUrl - NamedType SingleContainerLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1662200598 - Method 2616048138 - NamedType 1690795538" size-unit="char" translate="yes" xml:space="preserve">
+          <source>&amp;comp=list</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Base URL; %2 = Container Name ; %3 = SaS Token</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Helper Library - Method ConstructUrl - NamedType ListContainerExtensionLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1662200598 - Method 2616048138 - NamedType 2272051917" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1/%2/%3</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Base URL; %2 = Container Name ; %3 = Blob Name ; %4 = SaS Token</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Helper Library - Method ConstructUrl - NamedType SingleBlobInContainerLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1662200598 - Method 1340944587 - NamedType 4132244079" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1 can not be empty</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Variable Name</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Helper Library - Method TestConstructUrlParameter - NamedType ValueCanNotBeEmptyErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1662200598 - Method 1340944587 - NamedType 615382663" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Storage Account Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Helper Library - Method TestConstructUrlParameter - NamedType StorageAccountNameLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1662200598 - Method 1340944587 - NamedType 1759214852" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shared Access Signature (Token)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Helper Library - Method TestConstructUrlParameter - NamedType SasTokenLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1662200598 - Method 1340944587 - NamedType 3564948910" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Access Key</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Helper Library - Method TestConstructUrlParameter - NamedType AccesKeyLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1662200598 - Method 1340944587 - NamedType 3886565542" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Container Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Helper Library - Method TestConstructUrlParameter - NamedType ContainerNameLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1662200598 - Method 1340944587 - NamedType 3603974506" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Blob Name</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Helper Library - Method TestConstructUrlParameter - NamedType BlobNameLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1096486856 - NamedType 2628384745" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Length</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Web Request Helper - NamedType ContentLengthLbl</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1096486856 - Method 295330974 - NamedType 683667025" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Could not read response.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Web Request Helper - Method GetResponseAsText - NamedType ReadResponseFailedErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1096486856 - Method 2909556501 - NamedType 683667025" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Could not read response.</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Web Request Helper - Method GetResponseAsStream - NamedType ReadResponseFailedErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1096486856 - Method 4268477247 - NamedType 2013189902" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Could not connect to %1.\\Response Code: %2 %3</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Base URL; %2 = Status Code; %3 = Reason Phrase</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Web Request Helper - Method GetResponse - NamedType IntitialGetFailedErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1096486856 - Method 1459549864 - NamedType 278290564" size-unit="char" translate="yes" xml:space="preserve">
+          <source>%1.\\Response Code: %2 %3</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Default Error Message ; %2 = Status Code; %3 = Reason Phrase</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Web Request Helper - Method PutOperation - NamedType HttpResponseInfoErr</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Blob Storage Connection Card</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Property 2019332006" size-unit="char" translate="yes" xml:space="preserve">
+          <source>New,Process,Reports,View Container,Create Container,Upload,Download</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Property PromotedActionCategories</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Control 3004954119 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Identifier</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Control Code - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Control 3461834954 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Control Description - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Control 2184249729 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The name (not the complete URL) for the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Control Storage Account Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Control 3687300662 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The API Version to use</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Control API Version - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Control 3207683269 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The way of authorizing API calls</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Control Authorization Type - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Control 839089114 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shared access signature Token or SharedKey</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Control Secret - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Control 1774875551 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The Name of the Container (or Directory) to download files from</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Control Source Container Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Control 1305033227 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The Name of the Container (or Directory) to upload files to</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Control Target Container Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 176562519 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action View - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 2265178186 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List all Containers</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action ListContainers - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 2265178186 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List all available Containers in the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action ListContainers - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 1410279783 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List Contents of Source</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action ListSourceContents - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 1410279783 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List all files in the Source Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action ListSourceContents - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 1910753552 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List Contents of Destination</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action ListDestinationContents - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 1910753552 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List all files in the Destination Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action ListDestinationContents - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 2281047204 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Containers</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action CreateContainers - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 2354475124 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Source Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action TestCreateSourceContainer - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 2354475124 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create the Container (specified in "Source Container Name") in the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action TestCreateSourceContainer - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 1560731592 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Target Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action TestCreateTargetContainer - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 1560731592 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create the Container (specified in "Target Container Name") in the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action TestCreateTargetContainer - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 1139572727 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Upload</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action UploadFile - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 725558672 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Upload File (Source)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action UploadFileUISource - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 725558672 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Upload a file in the Container (specified in "Source Container Name") of the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action UploadFileUISource - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 3678290716 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Upload File (Target)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action UploadFileUITarget - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 3678290716 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Upload a file in the Container (specified in "Target Container Name") of the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action UploadFileUITarget - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 2787516006 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action DownloadFile - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 713003757 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download File (Source)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action DownloadFileUISource - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 713003757 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download a file from the Container (specified in "Source Container Name") of the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action DownloadFileUISource - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 496096945 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download File (Target)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action DownloadFileUITarget - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 496096945 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download a file from the Container (specified in "Target Container Name") of the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action DownloadFileUITarget - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Blob Storage Connections</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Control 3004954119 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Identifier</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Control Code - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Control 3461834954 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Description</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Control Description - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Control 2184249729 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Enter the name (not the complete URL) for the Storage Account here</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Control Storage Account Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Control 3207683269 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The way of authorizing API calls</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Control Authorization Type - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Control 839089114 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shared access signature Token or SharedKey</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Control Secret - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Control 1774875551 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The Name of the Container (or Directory) to download files from</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Control Source Container Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Control 1305033227 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>The Name of the Container (or Directory) to upload files to</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Control Target Container Name - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 705173316 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>View</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action ListContents - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 1487752180 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List all Containers</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action TestListContainers - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 1487752180 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List all available Containers in the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action TestListContainers - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 2323039899 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List Contents of Source</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action TestListSource - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 2323039899 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List all files in the Source Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action TestListSource - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 46209540 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List Contents of Destination</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action TestListDestination - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 46209540 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List all files in the Destination Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action TestListDestination - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 2281047204 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Containers</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action CreateContainers - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 2354475124 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Source Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action TestCreateSourceContainer - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 2354475124 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create the Container (specified in "Source Container Name") in the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action TestCreateSourceContainer - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 2850120115 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Destination Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action TestCreateDestinationContainer - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 2850120115 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create the Container (specified in "Destination Container Name") in the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action TestCreateDestinationContainer - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 1139572727 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Upload</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action UploadFile - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 1095683099 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Upload File (UI) to Source Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action UploadFileUI - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 1095683099 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Upload a file in the Container (specified in "Source Container Name") of the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action UploadFileUI - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 2787516006 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action DownloadFile - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 289617730 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download File (UI) from Source Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action DownloadFileUI - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 3284536675 - Action 289617730 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Download a file from the Container (specified in "Source Container Name") of the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Connections - Action DownloadFileUI - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Enum 1077029243 - EnumValue 2910642922 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>2017-04-17</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum AZBSA API Version - EnumValue 2017-04-17 - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1944255684 - EnumValue 3398022750 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shared Access Signature</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum AZBSA Authorization Type - EnumValue SasToken - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1944255684 - EnumValue 1421066154 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Shared Key</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum AZBSA Authorization Type - EnumValue SharedKey - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1456968008 - EnumValue 2265178186 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List Containers</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum AZBSA Blob Storage Operation - EnumValue ListContainers - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1456968008 - EnumValue 3060740713 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>List Container Contents</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum AZBSA Blob Storage Operation - EnumValue ListContainerContents - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1456968008 - EnumValue 3567206682 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Create Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum AZBSA Blob Storage Operation - EnumValue PutContainer - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1456968008 - EnumValue 2765424895 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Get Blob</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum AZBSA Blob Storage Operation - EnumValue GetBlob - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1456968008 - EnumValue 3981743486 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Upload Blob</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum AZBSA Blob Storage Operation - EnumValue PutBlob - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1456968008 - EnumValue 2752159046 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delete Blob</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum AZBSA Blob Storage Operation - EnumValue DeleteBlob - Property Caption</note>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
