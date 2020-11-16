@@ -15,6 +15,7 @@ codeunit 89001 "AZBSA Request Object"
         ApiVersion: Enum "AZBSA API Version";
         Secret: Text;
         StorageAccountName: Text;
+        BlobStorageConnectionCode: Code[10];
         ContainerName: Text;
         BlobName: Text;
         Operation: Enum "AZBSA Blob Storage Operation";
@@ -26,22 +27,28 @@ codeunit 89001 "AZBSA Request Object"
     // #region Initialize Requests
     procedure InitializeRequest(NewStorageAccountName: Text)
     begin
-        InitializeRequest(NewStorageAccountName, '');
+        InitializeRequest(NewStorageAccountName, '', '');
     end;
 
     procedure InitializeRequest(NewStorageAccountName: Text; NewContainerName: Text)
     begin
-        InitializeRequest(NewStorageAccountName, NewContainerName, '');
+        InitializeRequest(NewStorageAccountName, '', NewContainerName);
     end;
 
-    procedure InitializeRequest(NewStorageAccountName: Text; NewContainerName: Text; NewBlobName: Text)
+    procedure InitializeRequest(NewStorageAccountName: Text; StorageConnectionCode: Code[10]; NewContainerName: Text)
     begin
-        InitializeRequest(NewStorageAccountName, NewContainerName, NewBlobName, ApiVersion::"2017-04-17");
+        InitializeRequest(NewStorageAccountName, StorageConnectionCode, NewContainerName, '');
     end;
 
-    procedure InitializeRequest(NewStorageAccountName: Text; NewContainerName: Text; NewBlobName: Text; NewApiVersion: Enum "AZBSA API Version")
+    procedure InitializeRequest(NewStorageAccountName: Text; StorageConnectionCode: Code[10]; NewContainerName: Text; NewBlobName: Text)
+    begin
+        InitializeRequest(NewStorageAccountName, StorageConnectionCode, NewContainerName, NewBlobName, ApiVersion::"2017-04-17");
+    end;
+
+    procedure InitializeRequest(NewStorageAccountName: Text; StorageConnectionCode: Code[10]; NewContainerName: Text; NewBlobName: Text; NewApiVersion: Enum "AZBSA API Version")
     begin
         StorageAccountName := NewStorageAccountName;
+        BlobStorageConnectionCode := StorageConnectionCode;
         ContainerName := NewContainerName;
         BlobName := NewBlobName;
         ApiVersion := NewApiVersion;
@@ -68,6 +75,11 @@ codeunit 89001 "AZBSA Request Object"
     procedure SetContainerName(NewContainerName: Text)
     begin
         ContainerName := NewContainerName;
+    end;
+
+    procedure GetBlobStorageConnectionCode(): Code[10]
+    begin
+        exit(BlobStorageConnectionCode);
     end;
 
     procedure GetContainerName(): Text

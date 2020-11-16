@@ -60,6 +60,14 @@ table 89002 "AZBSA Container Content"
         {
             DataClassification = CustomerContent;
         }
+        field(120; "Blob Storage Container Code"; Code[10])
+        {
+            DataClassification = CustomerContent;
+        }
+        field(130; "Container Name"; Text[250])
+        {
+            DataClassification = CustomerContent;
+        }
     }
 
     keys
@@ -89,6 +97,11 @@ table 89002 "AZBSA Container Content"
     end;
 
     procedure AddNewEntryFromNode(var Node: XmlNode; XPathName: Text)
+    begin
+        AddNewEntryFromNode('', '', Node, XPathName);
+    end;
+
+    procedure AddNewEntryFromNode(StorageContainerCode: Code[10]; ContainerName: Text; var Node: XmlNode; XPathName: Text)
     var
         HelperLibrary: Codeunit "AZBSA Helper Library";
         NameFromXml: Text;
@@ -101,19 +114,19 @@ table 89002 "AZBSA Container Content"
         Node.SelectSingleNode('.//Properties', PropertiesNode);
         ChildNodes := PropertiesNode.AsXmlElement().GetChildNodes();
         if ChildNodes.Count = 0 then
-            Rec.AddNewEntry(NameFromXml, OuterXml)
+            Rec.AddNewEntry(StorageContainerCode, ContainerName, NameFromXml, OuterXml)
         else
-            Rec.AddNewEntry(NameFromXml, OuterXml, ChildNodes);
+            Rec.AddNewEntry(StorageContainerCode, ContainerName, NameFromXml, OuterXml, ChildNodes);
     end;
 
-    procedure AddNewEntry(NameFromXml: Text; OuterXml: Text)
+    procedure AddNewEntry(StorageContainerCode: Code[10]; ContainerName: Text; NameFromXml: Text; OuterXml: Text)
     var
         ChildNodes: XmlNodeList;
     begin
-        AddNewEntry(NameFromXml, OuterXml, ChildNodes);
+        AddNewEntry(StorageContainerCode, ContainerName, NameFromXml, OuterXml, ChildNodes);
     end;
 
-    procedure AddNewEntry(NameFromXml: Text; OuterXml: Text; ChildNodes: XmlNodeList)
+    procedure AddNewEntry(StorageContainerCode: Code[10]; ContainerName: Text; NameFromXml: Text; OuterXml: Text; ChildNodes: XmlNodeList)
     var
         NextEntryNo: Integer;
         Outstr: OutStream;
@@ -132,6 +145,8 @@ table 89002 "AZBSA Container Content"
         SetPropertyFields(ChildNodes);
         Rec."XML Value".CreateOutStream(Outstr);
         Outstr.Write(OuterXml);
+        rec."Blob Storage Container Code" := StorageContainerCode;
+        rec."Container Name" := ContainerName;
         Rec.Insert(true);
     end;
 
@@ -222,5 +237,13 @@ table 89002 "AZBSA Container Content"
         if StringSplit.Count > 2 then
             Parent := StringSplit.Get(StringSplit.Count() - 1);
         exit(CopyStr(Parent, 1, 250));
+    end;
+
+    procedure DownloadFile()
+    var
+        BlobStorageConnection: Record "AZBSA Blob Storage Connection";
+    begin
+        BlobStorageConnection.get(Rec."Blob Storage Container Code");
+        BlobStorageConnection.DownloadFileNoUI("Container Name", "Name");
     end;
 }

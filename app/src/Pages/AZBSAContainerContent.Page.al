@@ -37,6 +37,12 @@ page 89003 "AZBSA Container Content"
                 {
                     ApplicationArea = All;
                     ToolTip = 'xxx';
+
+                    trigger OnAssistEdit()
+                    var
+                    begin
+                        DownloadFile();
+                    end;
                 }
                 field("Creation-Time"; Rec."Creation-Time")
                 {

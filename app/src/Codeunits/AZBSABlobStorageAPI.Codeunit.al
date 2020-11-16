@@ -81,7 +81,7 @@ codeunit 89000 "AZBSA Blob Storage API"
 
         NodeList := HelperLibrary.CreateContainerNodeListFromResponse(ResponseText);
         BlobStorageContainer.SetBaseInfos(RequestObject);
-        HelperLibrary.ContainerNodeListTotempRecord(NodeList, BlobStorageContainer);
+        HelperLibrary.ContainerNodeListTotempRecord(RequestObject.GetContainerName(), NodeList, BlobStorageContainer);
         if ShowOutput then
             HelperLibrary.ShowTempRecordLookup(BlobStorageContainer);
     end;
@@ -141,7 +141,7 @@ codeunit 89000 "AZBSA Blob Storage API"
 
         NodeList := HelperLibrary.CreateBlobNodeListFromResponse(ResponseText);
         BlobStorageContent.SetBaseInfos(RequestObject);
-        HelperLibrary.BlobNodeListToTempRecord(NodeList, BlobStorageContent);
+        HelperLibrary.BlobNodeListToTempRecord(RequestObject.GetBlobStorageConnectionCode(), RequestObject.GetContainerName(), NodeList, BlobStorageContent);
         if ShowOutput then
             HelperLibrary.ShowTempRecordLookup(BlobStorageContent);
     end;

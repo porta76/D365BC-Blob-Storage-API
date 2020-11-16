@@ -17,14 +17,14 @@ codeunit 89002 "AZBSA Helper Library"
     //PropertyPlaceholderLbl: Label '%1: %2', Comment = '%1 = Property Name, %2 = Property Value';
 
     // #region Container-specific Helper
-    procedure ContainerNodeListTotempRecord(NodeList: XmlNodeList; var BlobStorageContent: Record "AZBSA Container Content")
+    procedure ContainerNodeListTotempRecord(StorageContainerCode: Code[10]; ContainerName: Text; NodeList: XmlNodeList; var BlobStorageContent: Record "AZBSA Container Content")
     begin
-        NodeListToTempRecord(NodeList, './/Name', BlobStorageContent);
+        NodeListToTempRecord(StorageContainerCode, ContainerName, NodeList, './/Name', BlobStorageContent);
     end;
 
-    procedure ContainerNodeListTotempRecord(NodeList: XmlNodeList; var BlobStorageContainer: Record "AZBSA Container")
+    procedure ContainerNodeListTotempRecord(ContainerName: Text; NodeList: XmlNodeList; var BlobStorageContainer: Record "AZBSA Container")
     begin
-        NodeListToTempRecord(NodeList, './/Name', BlobStorageContainer);
+        NodeListToTempRecord(ContainerName, NodeList, './/Name', BlobStorageContainer);
     end;
 
     procedure CreateContainerNodeListFromResponse(ResponseAsText: Text): XmlNodeList
@@ -39,16 +39,16 @@ codeunit 89002 "AZBSA Helper Library"
         exit(CreateXPathNodeListFromResponse(ResponseAsText, '/*/Blobs/Blob'));
     end;
 
-    procedure BlobNodeListToTempRecord(NodeList: XmlNodeList)
+    procedure BlobNodeListToTempRecord(StorageContainerCode: Code[10]; ContainerName: Text; NodeList: XmlNodeList)
     var
         BlobStorageContent: Record "AZBSA Container Content";
     begin
-        BlobNodeListToTempRecord(NodeList, BlobStorageContent);
+        BlobNodeListToTempRecord(StorageContainerCode, ContainerName, NodeList, BlobStorageContent);
     end;
 
-    procedure BlobNodeListToTempRecord(NodeList: XmlNodeList; var BlobStorageContent: Record "AZBSA Container Content")
+    procedure BlobNodeListToTempRecord(StorageContainerCode: Code[10]; ContainerName: Text; NodeList: XmlNodeList; var BlobStorageContent: Record "AZBSA Container Content")
     begin
-        NodeListToTempRecord(NodeList, './/Name', BlobStorageContent);
+        NodeListToTempRecord(StorageContainerCode, ContainerName, NodeList, './/Name', BlobStorageContent);
     end;
     // #endregion
 
@@ -134,7 +134,21 @@ codeunit 89002 "AZBSA Helper Library"
             BlobStorageContent.AddNewEntryFromNode(Node, XPathName);
     end;
 
-    local procedure NodeListToTempRecord(NodeList: XmlNodeList; XPathName: Text; var BlobStorageContainer: Record "AZBSA Container")
+    local procedure NodeListToTempRecord(StorageContainerCode: Code[10]; ContainerName: Text; NodeList: XmlNodeList; XPathName: Text; var BlobStorageContent: Record "AZBSA Container Content")
+    var
+        Node: XmlNode;
+    begin
+        if not BlobStorageContent.IsTemporary() then
+            Error('');
+        BlobStorageContent.DeleteAll();
+
+        if NodeList.Count = 0 then
+            exit;
+        foreach Node in NodeList do
+            BlobStorageContent.AddNewEntryFromNode(StorageContainerCode, ContainerName, Node, XPathName);
+    end;
+
+    local procedure NodeListToTempRecord(ContainerName: Text; NodeList: XmlNodeList; XPathName: Text; var BlobStorageContainer: Record "AZBSA Container")
     var
         Node: XmlNode;
     begin
