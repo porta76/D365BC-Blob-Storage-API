@@ -7,7 +7,7 @@ This App reproduces the [Azure Blob Storage REST API](https://docs.microsoft.com
 1. [Description](#description)
 2. [Authorization Methods](#authorization-methods)
 3. [API Coverage Status](#api-coverage-Status)
-
+4. [Sample Code](#sample-code)
 
 ## Description
 
