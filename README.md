@@ -5,9 +5,9 @@ This App reproduces the [Azure Blob Storage REST API](https://docs.microsoft.com
 **Table of Contents**
 
 1. [Description](#description)
-2. [Authorization Methods](#authorization-methods)
-3. [API Coverage Status](#api-coverage-Status)
-4. [Sample Code](#sample-code)
+2. [Usage](#usage)
+3. [Authorization Methods](#authorization-methods)
+4. [API Coverage Status](#api-coverage-Status)
 
 ## Description
 
@@ -39,6 +39,36 @@ The result might look something like this:
 
 The other actions work similar, but of course you don't need to use this via UI - you can also just 
 
+
+## Usage
+
+In general you'll mostly need two different objects to work with the API:
+- `codeunit 89001 "AZBSA Request Object"`
+- `codeunit 89000 "AZBSA Blob Storage API"`
+
+The `codeunit 89001 "AZBSA Request Object"` contains all information relevant for a request. There are multiple overloads for "InitializeRequest", depending on what you need to do. The only parameter relevant for all requests is "Storage Account Name" (and the "Authorization"-information). So before any API-call you need to call `InitializeAuthorization` and `InitializeRequest` and you're ready to go.
+
+All API-methods are publicly available in `codeunit 89000 "AZBSA Blob Storage API"`.
+
+
+### Sample Code
+
+Check out the procedures in `table 89000 "AZBSA Blob Storage Connection"` to see examples for the usage. Below you can find a simple example to create a Container in a Storage Account:
+
+```
+local procedure CreateContainer(ContainerName: Text)
+var
+    API: Codeunit "AZBSA Blob Storage API";
+    RequestObject: Codeunit "AZBSA Request Object";
+    AuthType: Enum "AZBSA Authorization Type";
+begin
+    RequestObject.InitializeAuthorization(AuthType::SharedKey, '02ruoBoh....jjwgooov49oMA==');
+    RequestObject.InitializeRequest('simonofhhtest001', 'testcontainer');
+    API.CreateContainer(RequestObject);
+end;
+```
+
+
 ## Authorization Methods
 
 Azure supports multiple options to authorize requests (see [here](https://docs.microsoft.com/en-us/rest/api/storageservices/authorize-requests-to-azure-storage)). The App supports the following right now:
@@ -49,6 +79,8 @@ Shared Key (Storage Account Key) | ✓ | Use one of the keys you can find under 
 Shared Access Signature (SAS) | ✓ | Generate a SAS token under "Settings" --> "Shared access signature" in the Azure portal for your Storage Account (or via [`New-AzStorageAccountSASToken`](https://docs.microsoft.com/en-us/powershell/module/az.storage/new-azstorageaccountsastoken?view=azps-5.0.0))
 Azure Active Directory (Azure AD) |   | tbd
 Active Directory (preview) |   | not planned
+
+
 
 ## API Coverage Status
 
@@ -102,20 +134,3 @@ Put Page | Page blobs only |  |
 Get Page Ranges | Page blobs only |  | 
 Incremental Copy Blob | Page blobs only |  | 
 Append Block | Append blobs only |  | 
-
-## Sample Code
-
-Check out the procedures in `table 89000 "AZBSA Blob Storage Connection"` to see examples for the usage. Below you can find a simple example to create a Container in a Storage Account:
-
-```
-local procedure CreateContainer(ContainerName: Text)
-var
-    API: Codeunit "AZBSA Blob Storage API";
-    RequestObject: Codeunit "AZBSA Request Object";
-    AuthType: Enum "AZBSA Authorization Type";
-begin
-    RequestObject.InitializeAuthorization(AuthType::SharedKey, '02ruoBoh....jjwgooov49oMA==');
-    RequestObject.InitializeRequest('simonofhhtest001', 'testcontainer');
-    API.CreateContainer(RequestObject);
-end;
-```
