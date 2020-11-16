@@ -66,15 +66,22 @@ table 89001 "AZBSA Container"
         }
     }
     var
-        Authorization: Codeunit "AZBSA Authorization";
+        RequestObject: Codeunit "AZBSA Request Object";
         StorageAccountName: Text;
         ContainerName: Text;
 
-    procedure SetBaseInfos(NewStorageAccountName: Text; NewContainerName: Text; NewAuthorization: Codeunit "AZBSA Authorization")
+    procedure SetBaseInfos(NewRequestObject: Codeunit "AZBSA Request Object")
+    begin
+        StorageAccountName := RequestObject.GetStorageAccountName();
+        ContainerName := RequestObject.GetContainerName();
+        RequestObject := NewRequestObject;
+    end;
+
+    procedure SetBaseInfos(NewStorageAccountName: Text; NewContainerName: Text; NewRequestObject: Codeunit "AZBSA Request Object")
     begin
         StorageAccountName := NewStorageAccountName;
         ContainerName := NewContainerName;
-        Authorization := NewAuthorization;
+        RequestObject := NewRequestObject;
     end;
 
     procedure AddNewEntryFromNode(var Node: XmlNode; XPathName: Text)
@@ -115,7 +122,7 @@ table 89001 "AZBSA Container"
         SetPropertyFields(ChildNodes);
         Rec."XML Value".CreateOutStream(Outstr);
         Outstr.Write(OuterXml);
-        //Rec.URI := HelperLibrary.ConstructUrl(StorageAccountName, Authorization, Operation::ListContainerContents, ContainerName, NameFromXml);
+        //Rec.URI := HelperLibrary.ConstructUrl(StorageAccountName, RequestObject, Operation::ListContainerContents, ContainerName, NameFromXml);
         Rec.Insert(true);
     end;
 

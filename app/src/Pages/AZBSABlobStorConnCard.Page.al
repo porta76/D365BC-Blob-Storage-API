@@ -11,7 +11,7 @@ page 89001 "AZBSA Blob Stor. Conn. Card"
     SourceTable = "AZBSA Blob Storage Connection";
     UsageCategory = Administration;
     ApplicationArea = All;
-    PromotedActionCategories = 'New,Process,Reports,View Container,Create Container,Upload,Download';
+    PromotedActionCategories = 'New,Process,Reports,View Container,Create Container,Delete Container,Upload,Download,Delete Blob';
 
     layout
     {
@@ -40,7 +40,7 @@ page 89001 "AZBSA Blob Stor. Conn. Card"
                     ToolTip = 'The API Version to use';
                 }
             }
-            group(Authorization)
+            group(RequestObject)
             {
                 field("Authorization Type"; Rec."Authorization Type")
                 {
@@ -107,19 +107,19 @@ page 89001 "AZBSA Blob Stor. Conn. Card"
                     end;
                 }
 
-                action(ListDestinationContents)
+                action(ListTargetContents)
                 {
                     ApplicationArea = All;
-                    Caption = 'List Contents of Destination';
+                    Caption = 'List Contents of Target';
                     Image = LaunchWeb;
-                    ToolTip = 'List all files in the Destination Container';
+                    ToolTip = 'List all files in the Target Container';
                     Promoted = true;
                     PromotedIsBig = true;
                     PromotedCategory = Category4;
 
                     trigger OnAction();
                     begin
-                        Rec.ListContentDestination();
+                        Rec.ListContentTarget();
                     end;
                 }
             }
@@ -154,7 +154,42 @@ page 89001 "AZBSA Blob Stor. Conn. Card"
 
                     trigger OnAction();
                     begin
-                        Rec.CreateDestinationContainer();
+                        Rec.CreateTargetContainer();
+                    end;
+                }
+            }
+            group(DeleteContainers)
+            {
+                Caption = 'Delete Containers';
+                action(TestDeleteSourceContainer)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delete Source Container';
+                    Image = LaunchWeb;
+                    ToolTip = 'Delete the Container (specified in "Source Container Name") in the Storage Account';
+                    Promoted = true;
+                    PromotedIsBig = true;
+                    PromotedCategory = Category6;
+
+                    trigger OnAction();
+                    begin
+                        Rec.DeleteSourceContainer();
+                    end;
+                }
+
+                action(TestDeleteTargetContainer)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delete Target Container';
+                    Image = LaunchWeb;
+                    ToolTip = 'Delete the Container (specified in "Target Container Name") in the Storage Account';
+                    Promoted = true;
+                    PromotedIsBig = true;
+                    PromotedCategory = Category6;
+
+                    trigger OnAction();
+                    begin
+                        Rec.DeleteTargetContainer();
                     end;
                 }
             }
@@ -170,7 +205,7 @@ page 89001 "AZBSA Blob Stor. Conn. Card"
                     ToolTip = 'Upload a file in the Container (specified in "Source Container Name") of the Storage Account';
                     Promoted = true;
                     PromotedIsBig = true;
-                    PromotedCategory = Category6;
+                    PromotedCategory = Category7;
 
                     trigger OnAction()
                     begin
@@ -185,11 +220,11 @@ page 89001 "AZBSA Blob Stor. Conn. Card"
                     ToolTip = 'Upload a file in the Container (specified in "Target Container Name") of the Storage Account';
                     Promoted = true;
                     PromotedIsBig = true;
-                    PromotedCategory = Category6;
+                    PromotedCategory = Category7;
 
                     trigger OnAction()
                     begin
-                        Rec.UploadFileUI(Rec."Source Container Name");
+                        Rec.UploadFileUI(Rec."Target Container Name");
                     end;
                 }
             }
@@ -205,7 +240,7 @@ page 89001 "AZBSA Blob Stor. Conn. Card"
                     ToolTip = 'Download a file from the Container (specified in "Source Container Name") of the Storage Account';
                     Promoted = true;
                     PromotedIsBig = true;
-                    PromotedCategory = Category7;
+                    PromotedCategory = Category8;
 
                     trigger OnAction()
                     begin
@@ -220,11 +255,47 @@ page 89001 "AZBSA Blob Stor. Conn. Card"
                     ToolTip = 'Download a file from the Container (specified in "Target Container Name") of the Storage Account';
                     Promoted = true;
                     PromotedIsBig = true;
-                    PromotedCategory = Category7;
+                    PromotedCategory = Category8;
 
                     trigger OnAction()
                     begin
-                        Rec.DownloadFileUI(Rec."Source Container Name");
+                        Rec.DownloadFileUI(Rec."Target Container Name");
+                    end;
+                }
+            }
+
+            group(DeleteBlob)
+            {
+                Caption = 'Delete Blob';
+
+                action(DeleteBlobUISource)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delete File (Source)';
+                    Image = LaunchWeb;
+                    ToolTip = 'Delete a file from the Container (specified in "Source Container Name") of the Storage Account';
+                    Promoted = true;
+                    PromotedIsBig = true;
+                    PromotedCategory = Category9;
+
+                    trigger OnAction()
+                    begin
+                        Rec.DeleteBlobFromSourceContainerUI();
+                    end;
+                }
+                action(DeleteBlobUITarget)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delete File (Target)';
+                    Image = LaunchWeb;
+                    ToolTip = 'Delete a file from the Container (specified in "Target Container Name") of the Storage Account';
+                    Promoted = true;
+                    PromotedIsBig = true;
+                    PromotedCategory = Category9;
+
+                    trigger OnAction()
+                    begin
+                        Rec.DeleteBlobFromTargetContainerUI();
                     end;
                 }
             }

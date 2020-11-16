@@ -7,27 +7,35 @@ enum 89000 "AZBSA Blob Storage Operation"
 {
     Extensible = true;
 
-    value(0; ListContainers)
+    value(0; " ")
+    {
+        Caption = '';
+    }
+    value(10; ListContainers)
     {
         Caption = 'List Containers';
     }
-    value(1; ListContainerContents)
+    value(11; ListContainerContents)
     {
         Caption = 'List Container Contents';
     }
-    value(2; PutContainer)
+    value(12; PutContainer)
     {
         Caption = 'Create Container';
     }
-    value(10; GetBlob)
+    value(13; DeleteContainer)
+    {
+        Caption = 'Delete Container';
+    }
+    value(20; GetBlob)
     {
         Caption = 'Get Blob';
     }
-    value(11; PutBlob)
+    value(21; PutBlob)
     {
         Caption = 'Upload Blob';
     }
-    value(12; DeleteBlob)
+    value(22; DeleteBlob)
     {
         Caption = 'Delete Blob';
     }

@@ -5,9 +5,9 @@ This App reproduces the [Azure Blob Storage REST API](https://docs.microsoft.com
 **Table of Contents**
 
 1. [Description](#description)
-2. [Authorization Methods](#authorization-methods)
-3. [API Coverage Status](#api-coverage-Status)
-
+2. [Usage](#usage)
+3. [Authorization Methods](#authorization-methods)
+4. [API Coverage Status](#api-coverage-Status)
 
 ## Description
 
@@ -39,6 +39,36 @@ The result might look something like this:
 
 The other actions work similar, but of course you don't need to use this via UI - you can also just 
 
+
+## Usage
+
+In general you'll mostly need two different objects to work with the API:
+- `codeunit 89001 "AZBSA Request Object"`
+- `codeunit 89000 "AZBSA Blob Storage API"`
+
+The `codeunit 89001 "AZBSA Request Object"` contains all information relevant for a request. There are multiple overloads for "InitializeRequest", depending on what you need to do. The only parameter relevant for all requests is "Storage Account Name" (and the "Authorization"-information). So before any API-call you need to call `InitializeAuthorization` and `InitializeRequest` and you're ready to go.
+
+All API-methods are publicly available in `codeunit 89000 "AZBSA Blob Storage API"`.
+
+
+### Sample Code
+
+Check out the procedures in `table 89000 "AZBSA Blob Storage Connection"` to see examples for the usage. Below you can find a simple example to create a Container in a Storage Account:
+
+```
+local procedure CreateContainer(ContainerName: Text)
+var
+    API: Codeunit "AZBSA Blob Storage API";
+    RequestObject: Codeunit "AZBSA Request Object";
+    AuthType: Enum "AZBSA Authorization Type";
+begin
+    RequestObject.InitializeAuthorization(AuthType::SharedKey, '02ruoBoh....jjwgooov49oMA==');
+    RequestObject.InitializeRequest('simonofhhtest001', 'testcontainer');
+    API.CreateContainer(RequestObject);
+end;
+```
+
+
 ## Authorization Methods
 
 Azure supports multiple options to authorize requests (see [here](https://docs.microsoft.com/en-us/rest/api/storageservices/authorize-requests-to-azure-storage)). The App supports the following right now:
@@ -50,31 +80,34 @@ Shared Access Signature (SAS) | ✓ | Generate a SAS token under "Settings" --> 
 Azure Active Directory (Azure AD) |   | tbd
 Active Directory (preview) |   | not planned
 
+
+
 ## API Coverage Status
 
 The following API-calls are reproduced right now
 
 Operation | Resource Type | Status | Description
 --- | --- | --- | ---
-List Containers | Account | ✓ | `procedure ListContainers(StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization")`
+List Containers | Account | ✓ | `procedure ListContainers(var RequestObject: Codeunit "AZBSA Request Object")`
 Set Blob Service Properties | Account |  | 
 Get Blob Service Properties | Account |  | 
 Preflight Blob Request | Account |  | 
 Get Blob Service Stats | Account |  | 
 Get Account Information | Account |  | 
 Get User Delegation Key | Account |  | 
-Create Container | Container | ✓ | `procedure CreateContainer(StorageAccountName: Text; ContainerName: Text[50]; Authorization: Codeunit "AZBSA Authorization")`
+Create Container | Container | ✓ | `procedure CreateContainer(var RequestObject: Codeunit "AZBSA Request Object")`
 Get Container Properties | Container |  | 
 Get Container Metadata | Container |  | 
 Set Container Metadata | Container |  | 
 Get Container ACL | Container |  | 
 Set Container ACL | Container |  | 
 Lease Container | Container |  | 
-Delete Container | Container |  | 
-List Blobs | Container | ✓ | `procedure ListBlobs(StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization"; ContainerName: Text[50])`
-Put Blob | Block, append, and page blobs | ✓ | `procedure UploadBlobIntoContainer(StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization"; ContainerName: Text; BlobName: Text; var SourceContent: Variant)`
-Get Blob | Block, append, and page blobs | ✓ | `procedure DownloadBlobAsStream(StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization"; ContainerName: Text; BlobName: Text; var TargetStream: InStream)`
- | | | |  `procedure DownloadBlobAsText(StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization"; ContainerName: Text; BlobName: Text; var TargetText: Text)`
+Delete Container | Container | ✓ | `procedure DeleteContainer(var RequestObject: Codeunit "AZBSA Request Object")`
+List Blobs | Container | ✓ | `procedure ListBlobs(var RequestObject: Codeunit "AZBSA Request Object"; [var BlobStorageContent: Record "AZBSA Container Content"]; [ShowOutput: Boolean])`
+Put Blob | Block, append, and page blobs | ✓ | `procedure UploadBlobIntoContainerStream(var RequestObject: Codeunit "AZBSA Request Object"; BlobName: Text; var SourceStream: InStream)`
+ | | | |  `procedure UploadBlobIntoContainerText(var RequestObject: Codeunit "AZBSA Request Object"; BlobName: Text; var SourceText: Text)`
+Get Blob | Block, append, and page blobs | ✓ | `procedure DownloadBlobAsStream(var RequestObject: Codeunit "AZBSA Request Object"; var TargetStream: InStream)`
+ | | | |  `procedure DownloadBlobAsText(var RequestObject: Codeunit "AZBSA Request Object"; var TargetText: Text)`
  | | | | Note: Only supports BlockBlob right now
 Get Blob Properties | Block, append, and page blobs |  | 
 Set Blob Properties | Block, append, and page blobs |  | 
@@ -84,7 +117,8 @@ Set Blob Metadata | Block, append, and page blobs |  |
 Get Blob Tags | Block, append, and page blobs |  | 
 Set Blob Tags | Block, append, and page blobs |  | 
 Find Blobs By Tags | Block, append, and page blobs |  | 
-Delete Blob | Block, append and page blobs |  | 
+Delete Blob | Block, append and page blobs | ✓ | `procedure DeleteBlobFromContainerUI(var RequestObject: Codeunit "AZBSA Request Object")`
+| | | |  `procedure DeleteBlobFromContainer(var RequestObject: Codeunit "AZBSA Request Object")`
 Undelete Blob | Block, append and page blobs |  | 
 Lease Blob | Block, append, and page blobs |  | 
 Snapshot Blob | Block, append, and page blobs |  | 

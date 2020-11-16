@@ -70,15 +70,22 @@ table 89002 "AZBSA Container Content"
         }
     }
     var
-        Authorization: Codeunit "AZBSA Authorization";
+        RequestObject: Codeunit "AZBSA Request Object";
         StorageAccountName: Text;
         ContainerName: Text;
 
-    procedure SetBaseInfos(NewStorageAccountName: Text; NewContainerName: Text; NewAuthorization: Codeunit "AZBSA Authorization")
+    procedure SetBaseInfos(NewRequestObject: Codeunit "AZBSA Request Object")
+    begin
+        StorageAccountName := RequestObject.GetStorageAccountName();
+        ContainerName := RequestObject.GetContainerName();
+        RequestObject := NewRequestObject;
+    end;
+
+    procedure SetBaseInfos(NewStorageAccountName: Text; NewContainerName: Text; NewRequestObject: Codeunit "AZBSA Request Object")
     begin
         StorageAccountName := NewStorageAccountName;
         ContainerName := NewContainerName;
-        Authorization := NewAuthorization;
+        RequestObject := NewRequestObject;
     end;
 
     procedure AddNewEntryFromNode(var Node: XmlNode; XPathName: Text)

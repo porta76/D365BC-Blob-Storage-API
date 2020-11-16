@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 // ------------------------------------------------------------------------------------------------
 
-codeunit 89001 "AZBSA Authorization"
+codeunit 89001 "AZBSA Request Object"
 {
     trigger OnRun()
     begin
@@ -14,8 +14,144 @@ codeunit 89001 "AZBSA Authorization"
         AuthType: Enum "AZBSA Authorization Type";
         ApiVersion: Enum "AZBSA API Version";
         Secret: Text;
+        StorageAccountName: Text;
+        ContainerName: Text;
+        BlobName: Text;
+        Operation: Enum "AZBSA Blob Storage Operation";
         HeaderValues: Dictionary of [Text, Text];
+        OptionalHeaderValues: Dictionary of [Text, Text];
         KeyValuePairLbl: Label '%1:%2', Comment = '%1 = Key; %2 = Value';
+        Response: HttpResponseMessage;
+
+    // #region Initialize Requests
+    procedure InitializeRequest(NewStorageAccountName: Text)
+    begin
+        InitializeRequest(NewStorageAccountName, '');
+    end;
+
+    procedure InitializeRequest(NewStorageAccountName: Text; NewContainerName: Text)
+    begin
+        InitializeRequest(NewStorageAccountName, NewContainerName, '');
+    end;
+
+    procedure InitializeRequest(NewStorageAccountName: Text; NewContainerName: Text; NewBlobName: Text)
+    begin
+        InitializeRequest(NewStorageAccountName, NewContainerName, NewBlobName, ApiVersion::"2017-04-17");
+    end;
+
+    procedure InitializeRequest(NewStorageAccountName: Text; NewContainerName: Text; NewBlobName: Text; NewApiVersion: Enum "AZBSA API Version")
+    begin
+        StorageAccountName := NewStorageAccountName;
+        ContainerName := NewContainerName;
+        BlobName := NewBlobName;
+        ApiVersion := NewApiVersion;
+    end;
+    // #endregion Initialize Requests
+
+    procedure InitializeAuthorization(NewAuthType: Enum "AZBSA Authorization Type"; NewSecret: Text)
+    begin
+        AuthType := NewAuthType;
+        Secret := NewSecret;
+    end;
+
+    // #region Set/Get Globals
+    procedure SetStorageAccountName(NewStorageAccountName: Text)
+    begin
+        StorageAccountName := NewStorageAccountName;
+    end;
+
+    procedure GetStorageAccountName(): Text
+    begin
+        exit(StorageAccountName);
+    end;
+
+    procedure SetContainerName(NewContainerName: Text)
+    begin
+        ContainerName := NewContainerName;
+    end;
+
+    procedure GetContainerName(): Text
+    begin
+        exit(ContainerName);
+    end;
+
+    procedure SetBlobName(NewBlobName: Text)
+    begin
+        BlobName := NewBlobName;
+    end;
+
+    procedure GetBlobName(): Text
+    begin
+        exit(BlobName);
+    end;
+
+    procedure SetOperation(NewOperation: Enum "AZBSA Blob Storage Operation")
+    begin
+        Operation := NewOperation;
+    end;
+
+    procedure GetOperation(): Enum "AZBSA Blob Storage Operation"
+    begin
+        exit(Operation);
+    end;
+
+    procedure SetAuthorizationType(NewAuthType: Enum "AZBSA Authorization Type")
+    begin
+        AuthType := NewAuthType;
+    end;
+
+    procedure GetAuthorizationType(): Enum "AZBSA Authorization Type"
+    begin
+        exit(AuthType);
+    end;
+
+    procedure SetSecret(NewSecret: Text)
+    begin
+        Secret := NewSecret;
+    end;
+
+    procedure GetSecret(): Text
+    begin
+        exit(Secret);
+    end;
+
+    procedure SetApiVersion(NewApiVersion: Enum "AZBSA API Version")
+    begin
+        ApiVersion := NewApiVersion;
+    end;
+
+    procedure GetApiVersion(): Enum "AZBSA API Version"
+    begin
+        exit(ApiVersion);
+    end;
+
+    procedure SetHttpResponse(NewResponse: HttpResponseMessage)
+    begin
+        Response := NewResponse;
+    end;
+
+    procedure GetHttpResponse(var NewResponse: HttpResponseMessage)
+    begin
+        NewResponse := Response;
+    end;
+
+    procedure GetHttpResponseStatusCode(): Integer
+    begin
+        exit(Response.HttpStatusCode());
+    end;
+
+    procedure GetHttpResponseIsSuccessStatusCode(): Boolean
+    begin
+        exit(Response.IsSuccessStatusCode);
+    end;
+    // #endregion Set/Get Globals
+
+    procedure AddOptionalHeader("Key": Text; "Value": Text)
+    begin
+        if OptionalHeaderValues.ContainsKey("Key") then
+            OptionalHeaderValues.Remove("Key");
+        OptionalHeaderValues.Add("Key", "Value");
+    end;
 
     procedure AddHeader(var Headers: HttpHeaders; "Key": Text; "Value": Text)
     begin
@@ -32,34 +168,83 @@ codeunit 89001 "AZBSA Authorization"
         Clear(HeaderValues);
     end;
 
-    procedure SetAuthorizationType(NewAuthType: Enum "AZBSA Authorization Type")
+    // #region Uri generation
+    procedure ConstructUri(): Text
+    var
+        AuthorizationType: Enum "AZBSA Authorization Type";
+        ConstructedUrl: Text;
+        BlobStorageBaseUrlLbl: Label 'https://%1.blob.core.windows.net', Comment = '%1 = Storage Account Name';
+        SingleContainerLbl: Label '%1/%2?restype=container%3', Comment = '%1 = Base URL; %2 = Container Name ; %3 = List-extension (if applicable)';
+        ListContainerExtensionLbl: Label '&comp=list';
+        SingleBlobInContainerLbl: Label '%1/%2/%3', Comment = '%1 = Base URL; %2 = Container Name ; %3 = Blob Name';
     begin
-        AuthType := NewAuthType;
+        TestConstructUrlParameter();
+
+        ConstructedUrl := StrSubstNo(BlobStorageBaseUrlLbl, StorageAccountName);
+        case Operation of
+            Operation::ListContainers:
+                ConstructedUrl := StrSubstNo(SingleContainerLbl, ConstructedUrl, '', ListContainerExtensionLbl); // https://<StorageAccountName>.blob.core.windows.net/?restype=container&comp=list
+            Operation::DeleteContainer:
+                ConstructedUrl := StrSubstNo(SingleContainerLbl, ConstructedUrl, ContainerName, ''); // https://<StorageAccountName>.blob.core.windows.net/?restype=container&comp=list
+            Operation::ListContainerContents:
+                ConstructedUrl := StrSubstNo(SingleContainerLbl, ConstructedUrl, ContainerName, ListContainerExtensionLbl); // https://<StorageAccountName>.blob.core.windows.net/<ContainerName>?restype=container&comp=list
+            Operation::PutContainer:
+                ConstructedUrl := StrSubstNo(SingleContainerLbl, ConstructedUrl, ContainerName, ''); // https://<StorageAccountName>.blob.core.windows.net/<ContainerName>?restype=container
+            Operation::GetBlob, Operation::PutBlob, Operation::DeleteBlob:
+                ConstructedUrl := StrSubstNo(SingleBlobInContainerLbl, ConstructedUrl, ContainerName, BlobName); // https://<StorageAccountName>.blob.core.windows.net/<ContainerName>/<BlobName>
+        end;
+
+        // If SaS-Token is used for authentication, append it to the URI
+        if AuthType = AuthorizationType::SasToken then
+            if ConstructedUrl.Contains('?') then
+                ConstructedUrl += '&' + Secret
+            else
+                ConstructedUrl += '?' + Secret;
+        exit(ConstructedUrl);
     end;
 
-    procedure SetSecret(NewSecret: Text)
+    local procedure TestConstructUrlParameter()
+    var
+        AuthorizationType: Enum "AZBSA Authorization Type";
+        ValueCanNotBeEmptyErr: Label '%1 can not be empty', Comment = '%1 = Variable Name';
+        StorageAccountNameLbl: Label 'Storage Account Name';
+        SasTokenLbl: Label 'Shared Access Signature (Token)';
+        AccesKeyLbl: Label 'Access Key';
+        ContainerNameLbl: Label 'Container Name';
+        BlobNameLbl: Label 'Blob Name';
+        OperationLbl: Label 'Operation';
     begin
-        Secret := NewSecret;
-    end;
+        if StorageAccountName = '' then
+            Error(ValueCanNotBeEmptyErr, StorageAccountNameLbl);
 
-    procedure SetApiVersion(NewApiVersion: Enum "AZBSA API Version")
-    begin
-        ApiVersion := NewApiVersion;
-    end;
+        case AuthType of
+            AuthorizationType::SasToken:
+                if Secret = '' then
+                    Error(ValueCanNotBeEmptyErr, SasTokenLbl);
+            AuthorizationType::SharedKey:
+                if Secret = '' then
+                    Error(ValueCanNotBeEmptyErr, AccesKeyLbl);
+        end;
+        if Operation = Operation::" " then
+            Error(ValueCanNotBeEmptyErr, OperationLbl);
 
-    procedure GetAuthorizationType(): Enum "AZBSA Authorization Type"
-    begin
-        exit(AuthType);
+        case true of
+            Operation in [Operation::GetBlob, Operation::PutBlob, Operation::DeleteBlob]:
+                begin
+                    if ContainerName = '' then
+                        Error(ValueCanNotBeEmptyErr, ContainerNameLbl);
+                    if BlobName = '' then
+                        Error(ValueCanNotBeEmptyErr, BlobNameLbl);
+                end;
+        end;
     end;
+    // #endregion Uri generation
 
-    procedure GetSecret(): Text
-    begin
-        exit(Secret);
-    end;
+    // #region Shared Key Signature Generation
 
-    procedure GetApiVersion(): Enum "AZBSA API Version"
+    procedure GetSharedKeySignature(HttpRequestType: Enum "Http Request Type"): Text
     begin
-        exit(ApiVersion);
+        exit(GetSharedKeySignature(HttpRequestType, StorageAccountName, ConstructUri()));
     end;
 
     procedure GetSharedKeySignature(HttpRequestType: Enum "Http Request Type"; StorageAccount: Text; UriString: Text): Text
@@ -81,6 +266,7 @@ codeunit 89001 "AZBSA Authorization"
         FormatHelper: Codeunit "AZBSA Format Helper";
         StringToSign: Text;
     begin
+        // TODO: Add Handling-structure for different API-versions
         StringToSign += Format(HttpRequestType) + FormatHelper.GetNewLineCharacter();
         StringToSign += GetHeaderValueOrEmpty('Content-Encoding') + FormatHelper.GetNewLineCharacter(); // Content-Encoding
         StringToSign += GetHeaderValueOrEmpty('Content-Language') + FormatHelper.GetNewLineCharacter(); // Content-Language
@@ -207,4 +393,5 @@ codeunit 89001 "AZBSA Authorization"
     begin
         exit(CryptographyMgmt.GenerateBase64KeyedHashAsBase64String(StringToSign, AccessKey, HashAlgorithmType::HMACSHA256));
     end;
+    // #endregion Shared Key Signature Generation
 }
