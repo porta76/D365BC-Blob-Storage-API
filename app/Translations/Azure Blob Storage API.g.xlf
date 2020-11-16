@@ -288,6 +288,11 @@
           <note from="Developer" annotates="general" priority="2">%1 = Container Name</note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Blob Storage API - NamedType CreateContainerOperationNotSuccessfulErr</note>
         </trans-unit>
+        <trans-unit id="Codeunit 3744095123 - NamedType 501127257" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Could not delete container %1.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Container Name</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Blob Storage API - NamedType DeleteContainerOperationNotSuccessfulErr</note>
+        </trans-unit>
         <trans-unit id="Codeunit 3744095123 - NamedType 2838539987" size-unit="char" translate="yes" xml:space="preserve">
           <source>Could not upload %1 to %2</source>
           <note from="Developer" annotates="general" priority="2">%1 = Blob Name; %2 = Container Name</note>
@@ -397,6 +402,11 @@
           <source>%1.\\Response Code: %2 %3</source>
           <note from="Developer" annotates="general" priority="2">%1 = Default Error Message ; %2 = Status Code; %3 = Reason Phrase</note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Web Request Helper - NamedType HttpResponseInfoErr</note>
+        </trans-unit>
+        <trans-unit id="Codeunit 1096486856 - NamedType 501127257" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Could not delete container %1.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Container Name</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Web Request Helper - NamedType DeleteContainerOperationNotSuccessfulErr</note>
         </trans-unit>
         <trans-unit id="Page 2574213390 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Blob Storage Connection Card</source>
@@ -772,6 +782,11 @@
           <source>Create Container</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Enum AZBSA Blob Storage Operation - EnumValue PutContainer - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Enum 1456968008 - EnumValue 666949282 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delete Container</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Enum AZBSA Blob Storage Operation - EnumValue DeleteContainer - Property Caption</note>
         </trans-unit>
         <trans-unit id="Enum 1456968008 - EnumValue 2765424895 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Get Blob</source>

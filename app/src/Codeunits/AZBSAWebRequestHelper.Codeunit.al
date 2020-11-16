@@ -15,6 +15,7 @@ codeunit 89004 "AZBSA Web Request Helper"
         ReadResponseFailedErr: Label 'Could not read response.';
         IntitialGetFailedErr: Label 'Could not connect to %1.\\Response Code: %2 %3', Comment = '%1 = Base URL; %2 = Status Code; %3 = Reason Phrase';
         HttpResponseInfoErr: Label '%1.\\Response Code: %2 %3', Comment = '%1 = Default Error Message ; %2 = Status Code; %3 = Reason Phrase';
+        DeleteContainerOperationNotSuccessfulErr: Label 'Could not delete container %1.', Comment = '%1 = Container Name';
 
     // #region GET-Request
     procedure GetResponseAsText(RequestObject: Codeunit "AZBSA Request Object"; var ResponseText: Text)
@@ -27,41 +28,11 @@ codeunit 89004 "AZBSA Web Request Helper"
             Error(ReadResponseFailedErr);
     end;
 
-    /// <summary>
-    /// Performs GET-request and includes the content of HttpResponseMessage as a Text-object
-    /// </summary>
-    /// <param name="Url">The URL to perform the GET-request against.</param>
-    /// <param name="Response">The result of the GET-request as Text-object (by reference).</param>
-    procedure GetResponseAsText(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; var ResponseText: Text)
-    var
-        Response: HttpResponseMessage;
-    begin
-        GetResponse(Url, StorageAccountName, RequestObject, Response);
-
-        if not Response.Content.ReadAs(ResponseText) then
-            Error(ReadResponseFailedErr);
-    end;
-
     procedure GetResponseAsStream(RequestObject: Codeunit "AZBSA Request Object"; var Stream: InStream)
     var
         Response: HttpResponseMessage;
     begin
         GetResponse(RequestObject, Response);
-
-        if not Response.Content.ReadAs(Stream) then
-            Error(ReadResponseFailedErr);
-    end;
-
-    /// <summary>
-    /// Performs GET-request and includes the content of HttpResponseMessage as a InStream-object
-    /// </summary>
-    /// <param name="Url">The URL to perform the GET-request against.</param>
-    /// <param name="Response">The result of the GET-request as InStream-object (by reference).</param>
-    procedure GetResponseAsStream(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; var Stream: InStream)
-    var
-        Response: HttpResponseMessage;
-    begin
-        GetResponse(Url, StorageAccountName, RequestObject, Response);
 
         if not Response.Content.ReadAs(Stream) then
             Error(ReadResponseFailedErr);
@@ -79,25 +50,6 @@ codeunit 89004 "AZBSA Web Request Helper"
             Error(IntitialGetFailedErr, RequestObject.ConstructUri(), Response.HttpStatusCode, Response.ReasonPhrase);
         if not Response.IsSuccessStatusCode then
             Error(IntitialGetFailedErr, FormatHelper.RemoveSasTokenParameterFromUrl(RequestObject.ConstructUri()), Response.HttpStatusCode, Response.ReasonPhrase);
-    end;
-
-    /// <summary>
-    /// Performs GET-request and includes HttpResponseMessageas VAR
-    /// </summary>
-    /// <param name="Url">The URL to perform the GET-request against.</param>
-    /// <param name="Response">The result of the GET-request as HttpResponseMessage (by reference).</param>
-    local procedure GetResponse(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; var Response: HttpResponseMessage)
-    var
-        FormatHelper: Codeunit "AZBSA Format Helper";
-        Client: HttpClient;
-        HttpRequestType: Enum "Http Request Type";
-    begin
-        HandleAuthorizationHeaders(HttpRequestType::GET, StorageAccountName, Url, Client, RequestObject);
-
-        if not Client.Get(Url, Response) then
-            Error(IntitialGetFailedErr, Url, Response.HttpStatusCode, Response.ReasonPhrase);
-        if not Response.IsSuccessStatusCode then
-            Error(IntitialGetFailedErr, FormatHelper.RemoveSasTokenParameterFromUrl(Url), Response.HttpStatusCode, Response.ReasonPhrase);
     end;
     // #endregion GET-Request
 
@@ -134,38 +86,6 @@ codeunit 89004 "AZBSA Web Request Helper"
             Error(HttpResponseInfoErr, OperationNotSuccessfulErr, Response.HttpStatusCode, Response.ReasonPhrase);
     end;
 
-    procedure PutOperation(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; OperationNotSuccessfulErr: Text)
-    var
-        Content: HttpContent;
-    begin
-        PutOperation(Url, StorageAccountName, RequestObject, Content, OperationNotSuccessfulErr);
-    end;
-
-    procedure PutOperation(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; Content: HttpContent; OperationNotSuccessfulErr: Text)
-    var
-        Response: HttpResponseMessage;
-    begin
-        PutOperation(Url, StorageAccountName, RequestObject, Content, Response, OperationNotSuccessfulErr);
-    end;
-
-    local procedure PutOperation(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; Content: HttpContent; var Response: HttpResponseMessage; OperationNotSuccessfulErr: Text)
-    var
-        Client: HttpClient;
-        HttpRequestType: Enum "Http Request Type";
-        RequestMsg: HttpRequestMessage;
-    begin
-        HandleAuthorizationHeaders(HttpRequestType::PUT, StorageAccountName, Url, Client, RequestObject);
-        // Prepare HttpRequestMessage
-        RequestMsg.Method(Format(HttpRequestType::PUT));
-        if ContentSet(Content) then
-            RequestMsg.Content := Content;
-        RequestMsg.SetRequestUri(Url);
-        // Send Request    
-        Client.Send(RequestMsg, Response);
-        if not Response.IsSuccessStatusCode then
-            Error(HttpResponseInfoErr, OperationNotSuccessfulErr, Response.HttpStatusCode, Response.ReasonPhrase);
-    end;
-
     local procedure ContentSet(Content: HttpContent): Boolean
     var
         VarContent: Text;
@@ -177,6 +97,35 @@ codeunit 89004 "AZBSA Web Request Helper"
         exit(VarContent <> '');
     end;
     // #endregion PUT-Request
+    procedure DeleteOperation(RequestObject: Codeunit "AZBSA Request Object")
+    var
+        Response: HttpResponseMessage;
+    begin
+        DeleteOperation(RequestObject, Response, StrSubstNo(DeleteContainerOperationNotSuccessfulErr, RequestObject.GetContainerName()));
+    end;
+
+    procedure DeleteOperation(RequestObject: Codeunit "AZBSA Request Object"; OperationNotSuccessfulErr: Text)
+    var
+        Response: HttpResponseMessage;
+    begin
+        DeleteOperation(RequestObject, Response, OperationNotSuccessfulErr);
+    end;
+
+    local procedure DeleteOperation(RequestObject: Codeunit "AZBSA Request Object"; var Response: HttpResponseMessage; OperationNotSuccessfulErr: Text)
+    var
+        Client: HttpClient;
+        HttpRequestType: Enum "Http Request Type";
+        RequestMsg: HttpRequestMessage;
+    begin
+        HandleAuthorizationHeaders(HttpRequestType::DELETE, Client, RequestObject);
+        // Prepare HttpRequestMessage
+        RequestMsg.Method(Format(HttpRequestType::DELETE));
+        RequestMsg.SetRequestUri(RequestObject.ConstructUri());
+        // Send Request    
+        Client.Send(RequestMsg, Response);
+        if not Response.IsSuccessStatusCode then
+            Error(HttpResponseInfoErr, OperationNotSuccessfulErr, Response.HttpStatusCode, Response.ReasonPhrase);
+    end;
 
     // #region HTTP Header Helper
     procedure AddBlobPutBlockBlobContentHeaders(var Content: HttpContent; RequestObject: Codeunit "AZBSA Request Object"; var SourceStream: InStream)
@@ -201,6 +150,7 @@ codeunit 89004 "AZBSA Web Request Helper"
         AddBlobPutContentHeaders(Content, RequestObject, SourceStream, BlobType::PageBlob)
     end;
     */
+
     procedure AddBlobPutAppendBlobContentHeaders(var Content: HttpContent; RequestObject: Codeunit "AZBSA Request Object"; var SourceStream: InStream)
     var
         BlobType: Enum "AZBSA Blob Type";
@@ -215,7 +165,7 @@ codeunit 89004 "AZBSA Web Request Helper"
         // Do this before calling "GetStreamLength", because for some reason the system errors out with "Cannot access a closed Stream."
         Content.WriteFrom(SourceStream);
 
-        Length := GetStreamLength(SourceStream);
+        Length := GetContentLength(SourceStream);
 
         AddBlobPutContentHeaders(Content, RequestObject, BlobType, Length, 'application/octet-stream');
     end;
@@ -224,10 +174,9 @@ codeunit 89004 "AZBSA Web Request Helper"
     var
         Length: Integer;
     begin
-        // Do this before calling "GetStreamLength", because for some reason the system errors out with "Cannot access a closed Stream."
         Content.WriteFrom(SourceText);
 
-        Length := StrLen(SourceText);
+        Length := GetContentLength(SourceText);
 
         AddBlobPutContentHeaders(Content, RequestObject, BlobType, Length, 'text/plain; charset=UTF-8');
     end;
@@ -267,30 +216,14 @@ codeunit 89004 "AZBSA Web Request Helper"
         RequestObject.AddHeader(Headers, 'x-ms-version', Format(RequestObject.GetApiVersion()));
         RequestObject.AddHeader(Headers, 'Authorization', RequestObject.GetSharedKeySignature(HttpRequestType));
     end;
-
-    local procedure HandleAuthorizationHeaders(HttpRequestType: Enum "Http Request Type"; StorageAccountName: Text; Url: Text; var Client: HttpClient; var RequestObject: Codeunit "AZBSA Request Object")
-    var
-        FormatHelper: Codeunit "AZBSA Format Helper";
-        UsedDateTimeText: Text;
-        AuthType: enum "AZBSA Authorization Type";
-        Headers: HttpHeaders;
-    begin
-        if RequestObject.GetAuthorizationType() = AuthType::SasToken then
-            exit;
-        UsedDateTimeText := FormatHelper.GetRfc1123DateTime();
-        Headers := Client.DefaultRequestHeaders;
-        RequestObject.AddHeader(Headers, 'x-ms-date', UsedDateTimeText);
-        RequestObject.AddHeader(Headers, 'x-ms-version', Format(RequestObject.GetApiVersion()));
-        RequestObject.AddHeader(Headers, 'Authorization', RequestObject.GetSharedKeySignature(HttpRequestType, StorageAccountName, Url));
-    end;
     // #endregion
 
     /// <summary>
     /// Retrieves the length of the given stream (used for "Content-Length" header in PUT-operations)
     /// </summary>
-    /// <param name="SourceStream">The InStream containing the required data.</param>
+    /// <param name="SourceStream">The InStream for Request Body.</param>
     /// <returns>The length of the current stream</returns>
-    local procedure GetStreamLength(var SourceStream: InStream): Integer
+    local procedure GetContentLength(var SourceStream: InStream): Integer
     var
         MemoryStream: Codeunit "MemoryStream Wrapper";
         Length: Integer;
@@ -304,5 +237,16 @@ codeunit 89004 "AZBSA Web Request Helper"
         exit(Length);
     end;
 
-    // TODO: Create GetStreamLength(var SourceText: Text)
+    /// <summary>
+    /// Retrieves the length of the given stream (used for "Content-Length" header in PUT-operations)
+    /// </summary>
+    /// <param name="SourceText">The Text for Request Body.</param>
+    /// <returns>The length of the current stream</returns>
+    local procedure GetContentLength(var SourceText: Text): Integer
+    var
+        Length: Integer;
+    begin
+        Length := StrLen(SourceText);
+        exit(Length);
+    end;
 }

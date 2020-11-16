@@ -14,6 +14,7 @@ codeunit 89000 "AZBSA Blob Storage API"
 
     var
         CreateContainerOperationNotSuccessfulErr: Label 'Could not create container %1.', Comment = '%1 = Container Name';
+        DeleteContainerOperationNotSuccessfulErr: Label 'Could not delete container %1.', Comment = '%1 = Container Name';
         UploadBlobOperationNotSuccessfulErr: Label 'Could not upload %1 to %2', Comment = '%1 = Blob Name; %2 = Container Name';
 
     // #region (PUT) Create Containers
@@ -84,6 +85,15 @@ codeunit 89000 "AZBSA Blob Storage API"
             HelperLibrary.ShowTempRecordLookup(BlobStorageContainer);
     end;
     // #endregion
+
+    procedure DeleteContainer(RequestObject: Codeunit "AZBSA Request Object")
+    var
+        WebRequestHelper: Codeunit "AZBSA Web Request Helper";
+        Operation: Enum "AZBSA Blob Storage Operation";
+    begin
+        RequestObject.SetOperation(Operation::DeleteContainer);
+        WebRequestHelper.DeleteOperation(RequestObject, StrSubstNo(DeleteContainerOperationNotSuccessfulErr, RequestObject.GetContainerName()));
+    end;
 
     // #region (GET) List Container Contents
     /// <summary>
