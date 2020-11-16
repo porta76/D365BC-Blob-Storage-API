@@ -174,4 +174,24 @@ table 89000 "AZBSA Blob Storage Connection"
         RequestObject.InitializeRequest(Rec."Storage Account Name", ContainerName);
         API.DownloadBlobAsFileWithSelect(RequestObject);
     end;
+
+    procedure DeleteBlobFromSourceContainerUI()
+    begin
+        DeleteBlobFromContainerUI(Rec."Source Container Name");
+    end;
+
+    procedure DeleteBlobFromTargetContainerUI()
+    begin
+        DeleteBlobFromContainerUI(Rec."Target Container Name");
+    end;
+
+    local procedure DeleteBlobFromContainerUI(ContainerName: Text)
+    var
+        API: Codeunit "AZBSA Blob Storage API";
+        RequestObject: Codeunit "AZBSA Request Object";
+    begin
+        RequestObject.InitializeAuthorization(Rec."Authorization Type", Rec.Secret);
+        RequestObject.InitializeRequest(Rec."Storage Account Name", ContainerName);
+        API.DeleteBlobFromContainerUI(RequestObject);
+    end;
 }

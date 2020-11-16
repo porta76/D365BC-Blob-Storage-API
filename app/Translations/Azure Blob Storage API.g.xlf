@@ -293,6 +293,11 @@
           <note from="Developer" annotates="general" priority="2">%1 = Container Name</note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Blob Storage API - NamedType DeleteContainerOperationNotSuccessfulErr</note>
         </trans-unit>
+        <trans-unit id="Codeunit 3744095123 - NamedType 2345547357" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Could not Blob %1 in container %2.</source>
+          <note from="Developer" annotates="general" priority="2">%1 = Blob Name; %2 = Container Name</note>
+          <note from="Xliff Generator" annotates="general" priority="3">Codeunit AZBSA Blob Storage API - NamedType DeleteBlobOperationNotSuccessfulErr</note>
+        </trans-unit>
         <trans-unit id="Codeunit 3744095123 - NamedType 2838539987" size-unit="char" translate="yes" xml:space="preserve">
           <source>Could not upload %1 to %2</source>
           <note from="Developer" annotates="general" priority="2">%1 = Blob Name; %2 = Container Name</note>
@@ -414,7 +419,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 2574213390 - Property 2019332006" size-unit="char" translate="yes" xml:space="preserve">
-          <source>New,Process,Reports,View Container,Create Container,Delete Container,Upload,Download</source>
+          <source>New,Process,Reports,View Container,Create Container,Delete Container,Upload,Download,Delete Blob</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Property PromotedActionCategories</note>
         </trans-unit>
@@ -592,6 +597,31 @@
           <source>Download a file from the Container (specified in "Target Container Name") of the Storage Account</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action DownloadFileUITarget - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 2752159046 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delete Blob</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action DeleteBlob - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 2634070797 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delete File (Source)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action DeleteBlobUISource - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 2634070797 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delete a file from the Container (specified in "Source Container Name") of the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action DeleteBlobUISource - Property ToolTip</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 358031057 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delete File (Target)</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action DeleteBlobUITarget - Property Caption</note>
+        </trans-unit>
+        <trans-unit id="Page 2574213390 - Action 358031057 - Property 1295455071" size-unit="char" translate="yes" xml:space="preserve">
+          <source>Delete a file from the Container (specified in "Target Container Name") of the Storage Account</source>
+          <note from="Developer" annotates="general" priority="2"></note>
+          <note from="Xliff Generator" annotates="general" priority="3">Page AZBSA Blob Stor. Conn. Card - Action DeleteBlobUITarget - Property ToolTip</note>
         </trans-unit>
         <trans-unit id="Page 3284536675 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
           <source>Blob Storage Connections</source>

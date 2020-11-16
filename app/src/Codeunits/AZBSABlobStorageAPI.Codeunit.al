@@ -15,6 +15,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     var
         CreateContainerOperationNotSuccessfulErr: Label 'Could not create container %1.', Comment = '%1 = Container Name';
         DeleteContainerOperationNotSuccessfulErr: Label 'Could not delete container %1.', Comment = '%1 = Container Name';
+        DeleteBlobOperationNotSuccessfulErr: Label 'Could not Blob %1 in container %2.', Comment = '%1 = Blob Name; %2 = Container Name';
         UploadBlobOperationNotSuccessfulErr: Label 'Could not upload %1 to %2', Comment = '%1 = Blob Name; %2 = Container Name';
 
     // #region (PUT) Create Containers
@@ -23,7 +24,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/create-container
     /// </summary>
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
-    procedure CreateContainer(RequestObject: Codeunit "AZBSA Request Object")
+    procedure CreateContainer(var RequestObject: Codeunit "AZBSA Request Object")
     var
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
         Operation: Enum "AZBSA Blob Storage Operation";
@@ -41,7 +42,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/list-containers2
     /// </summary>
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
-    procedure ListContainers(RequestObject: Codeunit "AZBSA Request Object")
+    procedure ListContainers(var RequestObject: Codeunit "AZBSA Request Object")
     begin
         ListContainers(RequestObject, true);
     end;
@@ -52,7 +53,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// </summary>
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
     /// <param name="ShowOutput">Determines if the result should be shown as a Page to the user.</param>
-    procedure ListContainers(RequestObject: Codeunit "AZBSA Request Object"; ShowOutput: Boolean)
+    procedure ListContainers(var RequestObject: Codeunit "AZBSA Request Object"; ShowOutput: Boolean)
     var
         BlobStorageContainer: Record "AZBSA Container";
     begin
@@ -66,7 +67,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
     /// <param name="BlobStorageContainer">Collection of the result (temporary record).</param>
     /// <param name="ShowOutput">Determines if the result should be shown as a Page to the user.</param>
-    procedure ListContainers(RequestObject: Codeunit "AZBSA Request Object"; var BlobStorageContainer: Record "AZBSA Container"; ShowOutput: Boolean)
+    procedure ListContainers(var RequestObject: Codeunit "AZBSA Request Object"; var BlobStorageContainer: Record "AZBSA Container"; ShowOutput: Boolean)
     var
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
         HelperLibrary: Codeunit "AZBSA Helper Library";
@@ -86,7 +87,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     end;
     // #endregion
 
-    procedure DeleteContainer(RequestObject: Codeunit "AZBSA Request Object")
+    procedure DeleteContainer(var RequestObject: Codeunit "AZBSA Request Object")
     var
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
         Operation: Enum "AZBSA Blob Storage Operation";
@@ -101,7 +102,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/list-blobs
     /// </summary>
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>    
-    procedure ListBlobs(RequestObject: Codeunit "AZBSA Request Object")
+    procedure ListBlobs(var RequestObject: Codeunit "AZBSA Request Object")
     begin
         ListBlobs(RequestObject, true);
     end;
@@ -112,7 +113,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// </summary>
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>    
     /// <param name="ShowOutput">Determines if the result should be shown as a Page to the user.</param>
-    procedure ListBlobs(RequestObject: Codeunit "AZBSA Request Object"; ShowOutput: Boolean)
+    procedure ListBlobs(var RequestObject: Codeunit "AZBSA Request Object"; ShowOutput: Boolean)
     var
         BlobStorageContent: Record "AZBSA Container Content";
     begin
@@ -126,7 +127,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>    
     /// <param name="BlobStorageContent">Collection of the result (temporary record).</param>
     /// <param name="ShowOutput">Determines if the result should be shown as a Page to the user.</param>
-    procedure ListBlobs(RequestObject: Codeunit "AZBSA Request Object"; var BlobStorageContent: Record "AZBSA Container Content"; ShowOutput: Boolean)
+    procedure ListBlobs(var RequestObject: Codeunit "AZBSA Request Object"; var BlobStorageContent: Record "AZBSA Container Content"; ShowOutput: Boolean)
     var
         HelperLibrary: Codeunit "AZBSA Helper Library";
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
@@ -152,7 +153,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/put-blob
     /// </summary>
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>    
-    procedure UploadBlobIntoContainerUI(RequestObject: Codeunit "AZBSA Request Object")
+    procedure UploadBlobIntoContainerUI(var RequestObject: Codeunit "AZBSA Request Object")
     var
         Filename: Text;
         SourceStream: InStream;
@@ -168,7 +169,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
     /// <param name="BlobName">The Name of the Blob to Upload.</param>
     /// <param name="SourceStream">The Content of the Blob as InStream.</param>
-    procedure UploadBlobIntoContainerStream(RequestObject: Codeunit "AZBSA Request Object"; BlobName: Text; var SourceStream: InStream)
+    procedure UploadBlobIntoContainerStream(var RequestObject: Codeunit "AZBSA Request Object"; BlobName: Text; var SourceStream: InStream)
     var
         SourceContent: Variant;
     begin
@@ -184,7 +185,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
     /// <param name="BlobName">The Name of the Blob to Upload.</param>
     /// <param name="SourceText">The Content of the Blob as Text.</param>
-    procedure UploadBlobIntoContainerText(RequestObject: Codeunit "AZBSA Request Object"; BlobName: Text; var SourceText: Text)
+    procedure UploadBlobIntoContainerText(var RequestObject: Codeunit "AZBSA Request Object"; BlobName: Text; var SourceText: Text)
     var
         SourceContent: Variant;
     begin
@@ -193,7 +194,7 @@ codeunit 89000 "AZBSA Blob Storage API"
         UploadBlobIntoContainer(RequestObject, SourceContent);
     end;
 
-    local procedure UploadBlobIntoContainer(RequestObject: Codeunit "AZBSA Request Object"; var SourceContent: Variant)
+    local procedure UploadBlobIntoContainer(var RequestObject: Codeunit "AZBSA Request Object"; var SourceContent: Variant)
     var
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
         Operation: Enum "AZBSA Blob Storage Operation";
@@ -226,7 +227,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/put-blob
     /// </summary>
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
-    procedure DownloadBlobAsFileWithSelect(RequestObject: Codeunit "AZBSA Request Object")
+    procedure DownloadBlobAsFileWithSelect(var RequestObject: Codeunit "AZBSA Request Object")
     var
         BlobStorageContent: Record "AZBSA Container Content";
         HelperLibrary: Codeunit "AZBSA Helper Library";
@@ -246,7 +247,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/put-blob
     /// </summary>
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
-    procedure DownloadBlobAsFile(RequestObject: Codeunit "AZBSA Request Object")
+    procedure DownloadBlobAsFile(var RequestObject: Codeunit "AZBSA Request Object")
     var
         BlobName: Text;
         TargetStream: InStream;
@@ -262,7 +263,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// </summary>
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
     /// <param name="TargetStream">The result InStream containg the content of the Blob.</param>
-    procedure DownloadBlobAsStream(RequestObject: Codeunit "AZBSA Request Object"; var TargetStream: InStream)
+    procedure DownloadBlobAsStream(var RequestObject: Codeunit "AZBSA Request Object"; var TargetStream: InStream)
     var
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
         Operation: Enum "AZBSA Blob Storage Operation";
@@ -277,7 +278,7 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// </summary>
     /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
     /// <param name="TargetText">The result Text containg the content of the Blob.</param>
-    procedure DownloadBlobAsText(RequestObject: Codeunit "AZBSA Request Object"; var TargetText: Text)
+    procedure DownloadBlobAsText(var RequestObject: Codeunit "AZBSA Request Object"; var TargetText: Text)
     var
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
         Operation: Enum "AZBSA Blob Storage Operation";
@@ -287,5 +288,27 @@ codeunit 89000 "AZBSA Blob Storage API"
     end;
     // #endregion
 
-    // TODO: Add Delete Blob    
+    procedure DeleteBlobFromContainerUI(var RequestObject: Codeunit "AZBSA Request Object")
+    var
+        BlobStorageContent: Record "AZBSA Container Content";
+        HelperLibrary: Codeunit "AZBSA Helper Library";
+        BlobName: Text;
+    begin
+        // Get list of available blobs
+        ListBlobs(RequestObject, BlobStorageContent, false);
+        // Show Lookup Page to select Blob to download
+        BlobName := HelperLibrary.LookupContainerContent(BlobStorageContent);
+        // Download Blob
+        RequestObject.SetBlobName(BlobName);
+        DeleteBlobFromContainer(RequestObject);
+    end;
+
+    procedure DeleteBlobFromContainer(var RequestObject: Codeunit "AZBSA Request Object")
+    var
+        WebRequestHelper: Codeunit "AZBSA Web Request Helper";
+        Operation: Enum "AZBSA Blob Storage Operation";
+    begin
+        RequestObject.SetOperation(Operation::DeleteBlob);
+        WebRequestHelper.DeleteOperation(RequestObject, StrSubstNo(DeleteBlobOperationNotSuccessfulErr, RequestObject.GetBlobName(), RequestObject.GetContainerName()));
+    end;
 }

@@ -11,7 +11,7 @@ page 89001 "AZBSA Blob Stor. Conn. Card"
     SourceTable = "AZBSA Blob Storage Connection";
     UsageCategory = Administration;
     ApplicationArea = All;
-    PromotedActionCategories = 'New,Process,Reports,View Container,Create Container,Delete Container,Upload,Download';
+    PromotedActionCategories = 'New,Process,Reports,View Container,Create Container,Delete Container,Upload,Download,Delete Blob';
 
     layout
     {
@@ -260,6 +260,42 @@ page 89001 "AZBSA Blob Stor. Conn. Card"
                     trigger OnAction()
                     begin
                         Rec.DownloadFileUI(Rec."Target Container Name");
+                    end;
+                }
+            }
+
+            group(DeleteBlob)
+            {
+                Caption = 'Delete Blob';
+
+                action(DeleteBlobUISource)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delete File (Source)';
+                    Image = LaunchWeb;
+                    ToolTip = 'Delete a file from the Container (specified in "Source Container Name") of the Storage Account';
+                    Promoted = true;
+                    PromotedIsBig = true;
+                    PromotedCategory = Category9;
+
+                    trigger OnAction()
+                    begin
+                        Rec.DeleteBlobFromSourceContainerUI();
+                    end;
+                }
+                action(DeleteBlobUITarget)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delete File (Target)';
+                    Image = LaunchWeb;
+                    ToolTip = 'Delete a file from the Container (specified in "Target Container Name") of the Storage Account';
+                    Promoted = true;
+                    PromotedIsBig = true;
+                    PromotedCategory = Category9;
+
+                    trigger OnAction()
+                    begin
+                        Rec.DeleteBlobFromTargetContainerUI();
                     end;
                 }
             }

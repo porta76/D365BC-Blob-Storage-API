@@ -21,6 +21,7 @@ codeunit 89001 "AZBSA Request Object"
         HeaderValues: Dictionary of [Text, Text];
         OptionalHeaderValues: Dictionary of [Text, Text];
         KeyValuePairLbl: Label '%1:%2', Comment = '%1 = Key; %2 = Value';
+        Response: HttpResponseMessage;
 
     // #region Initialize Requests
     procedure InitializeRequest(NewStorageAccountName: Text)
@@ -122,6 +123,26 @@ codeunit 89001 "AZBSA Request Object"
     procedure GetApiVersion(): Enum "AZBSA API Version"
     begin
         exit(ApiVersion);
+    end;
+
+    procedure SetHttpResponse(NewResponse: HttpResponseMessage)
+    begin
+        Response := NewResponse;
+    end;
+
+    procedure GetHttpResponse(var NewResponse: HttpResponseMessage)
+    begin
+        NewResponse := Response;
+    end;
+
+    procedure GetHttpResponseStatusCode(): Integer
+    begin
+        exit(Response.HttpStatusCode());
+    end;
+
+    procedure GetHttpResponseIsSuccessStatusCode(): Boolean
+    begin
+        exit(Response.IsSuccessStatusCode);
     end;
     // #endregion Set/Get Globals
 
