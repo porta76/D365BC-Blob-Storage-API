@@ -12,8 +12,21 @@ codeunit 89004 "AZBSA Web Request Helper"
 
     var
         ContentLengthLbl: Label '%1', Comment = '%1 = Length';
+        ReadResponseFailedErr: Label 'Could not read response.';
+        IntitialGetFailedErr: Label 'Could not connect to %1.\\Response Code: %2 %3', Comment = '%1 = Base URL; %2 = Status Code; %3 = Reason Phrase';
+        HttpResponseInfoErr: Label '%1.\\Response Code: %2 %3', Comment = '%1 = Default Error Message ; %2 = Status Code; %3 = Reason Phrase';
 
     // #region GET-Request
+    procedure GetResponseAsText(RequestObject: Codeunit "AZBSA Request Object"; var ResponseText: Text)
+    var
+        Response: HttpResponseMessage;
+    begin
+        GetResponse(RequestObject, Response);
+
+        if not Response.Content.ReadAs(ResponseText) then
+            Error(ReadResponseFailedErr);
+    end;
+
     /// <summary>
     /// Performs GET-request and includes the content of HttpResponseMessage as a Text-object
     /// </summary>
@@ -22,11 +35,20 @@ codeunit 89004 "AZBSA Web Request Helper"
     procedure GetResponseAsText(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; var ResponseText: Text)
     var
         Response: HttpResponseMessage;
-        ReadResponseFailedErr: Label 'Could not read response.';
     begin
         GetResponse(Url, StorageAccountName, RequestObject, Response);
 
         if not Response.Content.ReadAs(ResponseText) then
+            Error(ReadResponseFailedErr);
+    end;
+
+    procedure GetResponseAsStream(RequestObject: Codeunit "AZBSA Request Object"; var Stream: InStream)
+    var
+        Response: HttpResponseMessage;
+    begin
+        GetResponse(RequestObject, Response);
+
+        if not Response.Content.ReadAs(Stream) then
             Error(ReadResponseFailedErr);
     end;
 
@@ -38,12 +60,25 @@ codeunit 89004 "AZBSA Web Request Helper"
     procedure GetResponseAsStream(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; var Stream: InStream)
     var
         Response: HttpResponseMessage;
-        ReadResponseFailedErr: Label 'Could not read response.';
     begin
         GetResponse(Url, StorageAccountName, RequestObject, Response);
 
         if not Response.Content.ReadAs(Stream) then
             Error(ReadResponseFailedErr);
+    end;
+
+    local procedure GetResponse(RequestObject: Codeunit "AZBSA Request Object"; var Response: HttpResponseMessage)
+    var
+        FormatHelper: Codeunit "AZBSA Format Helper";
+        Client: HttpClient;
+        HttpRequestType: Enum "Http Request Type";
+    begin
+        HandleAuthorizationHeaders(HttpRequestType::GET, Client, RequestObject);
+
+        if not Client.Get(RequestObject.ConstructUri(), Response) then
+            Error(IntitialGetFailedErr, RequestObject.ConstructUri(), Response.HttpStatusCode, Response.ReasonPhrase);
+        if not Response.IsSuccessStatusCode then
+            Error(IntitialGetFailedErr, FormatHelper.RemoveSasTokenParameterFromUrl(RequestObject.ConstructUri()), Response.HttpStatusCode, Response.ReasonPhrase);
     end;
 
     /// <summary>
@@ -56,7 +91,6 @@ codeunit 89004 "AZBSA Web Request Helper"
         FormatHelper: Codeunit "AZBSA Format Helper";
         Client: HttpClient;
         HttpRequestType: Enum "Http Request Type";
-        IntitialGetFailedErr: Label 'Could not connect to %1.\\Response Code: %2 %3', Comment = '%1 = Base URL; %2 = Status Code; %3 = Reason Phrase';
     begin
         HandleAuthorizationHeaders(HttpRequestType::GET, StorageAccountName, Url, Client, RequestObject);
 
@@ -68,6 +102,38 @@ codeunit 89004 "AZBSA Web Request Helper"
     // #endregion GET-Request
 
     // #region PUT-Request
+    procedure PutOperation(RequestObject: Codeunit "AZBSA Request Object"; OperationNotSuccessfulErr: Text)
+    var
+        Content: HttpContent;
+    begin
+        PutOperation(RequestObject, Content, OperationNotSuccessfulErr);
+    end;
+
+    procedure PutOperation(RequestObject: Codeunit "AZBSA Request Object"; Content: HttpContent; OperationNotSuccessfulErr: Text)
+    var
+        Response: HttpResponseMessage;
+    begin
+        PutOperation(RequestObject, Content, Response, OperationNotSuccessfulErr);
+    end;
+
+    local procedure PutOperation(RequestObject: Codeunit "AZBSA Request Object"; Content: HttpContent; var Response: HttpResponseMessage; OperationNotSuccessfulErr: Text)
+    var
+        Client: HttpClient;
+        HttpRequestType: Enum "Http Request Type";
+        RequestMsg: HttpRequestMessage;
+    begin
+        HandleAuthorizationHeaders(HttpRequestType::PUT, Client, RequestObject);
+        // Prepare HttpRequestMessage
+        RequestMsg.Method(Format(HttpRequestType::PUT));
+        if ContentSet(Content) then
+            RequestMsg.Content := Content;
+        RequestMsg.SetRequestUri(RequestObject.ConstructUri());
+        // Send Request    
+        Client.Send(RequestMsg, Response);
+        if not Response.IsSuccessStatusCode then
+            Error(HttpResponseInfoErr, OperationNotSuccessfulErr, Response.HttpStatusCode, Response.ReasonPhrase);
+    end;
+
     procedure PutOperation(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; OperationNotSuccessfulErr: Text)
     var
         Content: HttpContent;
@@ -87,7 +153,6 @@ codeunit 89004 "AZBSA Web Request Helper"
         Client: HttpClient;
         HttpRequestType: Enum "Http Request Type";
         RequestMsg: HttpRequestMessage;
-        HttpResponseInfoErr: Label '%1.\\Response Code: %2 %3', Comment = '%1 = Default Error Message ; %2 = Status Code; %3 = Reason Phrase';
     begin
         HandleAuthorizationHeaders(HttpRequestType::PUT, StorageAccountName, Url, Client, RequestObject);
         // Prepare HttpRequestMessage
@@ -185,6 +250,22 @@ codeunit 89004 "AZBSA Web Request Helper"
                 RequestObject.AddHeader(Headers, 'Content-Length', StrSubstNo(ContentLengthLbl, ContentLength));
         end;
         RequestObject.AddHeader(Headers, 'x-ms-blob-type', Format(BlobType));
+    end;
+
+    local procedure HandleAuthorizationHeaders(HttpRequestType: Enum "Http Request Type"; var Client: HttpClient; var RequestObject: Codeunit "AZBSA Request Object")
+    var
+        FormatHelper: Codeunit "AZBSA Format Helper";
+        UsedDateTimeText: Text;
+        AuthType: enum "AZBSA Authorization Type";
+        Headers: HttpHeaders;
+    begin
+        if RequestObject.GetAuthorizationType() = AuthType::SasToken then
+            exit;
+        UsedDateTimeText := FormatHelper.GetRfc1123DateTime();
+        Headers := Client.DefaultRequestHeaders;
+        RequestObject.AddHeader(Headers, 'x-ms-date', UsedDateTimeText);
+        RequestObject.AddHeader(Headers, 'x-ms-version', Format(RequestObject.GetApiVersion()));
+        RequestObject.AddHeader(Headers, 'Authorization', RequestObject.GetSharedKeySignature(HttpRequestType));
     end;
 
     local procedure HandleAuthorizationHeaders(HttpRequestType: Enum "Http Request Type"; StorageAccountName: Text; Url: Text; var Client: HttpClient; var RequestObject: Codeunit "AZBSA Request Object")

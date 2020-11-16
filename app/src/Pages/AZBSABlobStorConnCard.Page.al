@@ -224,7 +224,7 @@ page 89001 "AZBSA Blob Stor. Conn. Card"
 
                     trigger OnAction()
                     begin
-                        Rec.UploadFileUI(Rec."Source Container Name");
+                        Rec.UploadFileUI(Rec."Target Container Name");
                     end;
                 }
             }
@@ -259,7 +259,7 @@ page 89001 "AZBSA Blob Stor. Conn. Card"
 
                     trigger OnAction()
                     begin
-                        Rec.DownloadFileUI(Rec."Source Container Name");
+                        Rec.DownloadFileUI(Rec."Target Container Name");
                     end;
                 }
             }

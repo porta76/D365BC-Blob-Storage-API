@@ -12,25 +12,23 @@ codeunit 89000 "AZBSA Blob Storage API"
 
     end;
 
+    var
+        CreateContainerOperationNotSuccessfulErr: Label 'Could not create container %1.', Comment = '%1 = Container Name';
+        UploadBlobOperationNotSuccessfulErr: Label 'Could not upload %1 to %2', Comment = '%1 = Blob Name; %2 = Container Name';
+
     // #region (PUT) Create Containers
     /// <summary>
-    /// List all Containers in specific Storage Account and outputs the result to the user
+    /// Creates a new Container in the Storage Account
     /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/create-container
     /// </summary>
-    /// <param name="StorageAccountName">The Storage Account to connect to.</param>
-    /// <param name="Authorization">Contains information with Authorization to use for authentication.</param>
-    /// <param name="ContainerName">The Name of the Container that should be created.</param>
-    procedure CreateContainer(StorageAccountName: Text; ContainerName: Text[50]; RequestObject: Codeunit "AZBSA Request Object")
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
+    procedure CreateContainer(RequestObject: Codeunit "AZBSA Request Object")
     var
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
-        HelperLibrary: Codeunit "AZBSA Helper Library";
         Operation: Enum "AZBSA Blob Storage Operation";
-        Url: Text;
-        OperationNotSuccessfulErr: Label 'Could not create container %1.', Comment = '%1 = Container Name';
     begin
-        Url := HelperLibrary.ConstructUrl(StorageAccountName, RequestObject, Operation::PutContainer, ContainerName, '');
-
-        WebRequestHelper.PutOperation(Url, StorageAccountName, RequestObject, StrSubstNo(OperationNotSuccessfulErr, ContainerName));
+        RequestObject.SetOperation(Operation::PutContainer);
+        WebRequestHelper.PutOperation(RequestObject, StrSubstNo(CreateContainerOperationNotSuccessfulErr, RequestObject.GetContainerName()));
     end;
     // #endregion 
 
@@ -41,50 +39,46 @@ codeunit 89000 "AZBSA Blob Storage API"
     /// List all Containers in specific Storage Account and outputs the result to the user
     /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/list-containers2
     /// </summary>
-    /// <param name="StorageAccountName">The Storage Account to connect to.</param>
-    /// <param name="Authorization">Contains information with Authorization to use for authentication.</param>
-    procedure ListContainers(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object")
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
+    procedure ListContainers(RequestObject: Codeunit "AZBSA Request Object")
     begin
-        ListContainers(StorageAccountName, RequestObject, true);
+        ListContainers(RequestObject, true);
     end;
 
     /// <summary>
-    /// List Containers in specific Storage Account
+    /// List all Containers in specific Storage Account
     /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/list-containers2
     /// </summary>
-    /// <param name="StorageAccountName">The Storage Account to connect to.</param>
-    /// <param name="Authorization">Contains information with Authorization to use for authentication.</param>
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
     /// <param name="ShowOutput">Determines if the result should be shown as a Page to the user.</param>
-    procedure ListContainers(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; ShowOutput: Boolean)
+    procedure ListContainers(RequestObject: Codeunit "AZBSA Request Object"; ShowOutput: Boolean)
     var
         BlobStorageContainer: Record "AZBSA Container";
     begin
-        ListContainers(StorageAccountName, RequestObject, BlobStorageContainer, ShowOutput);
+        ListContainers(RequestObject, BlobStorageContainer, ShowOutput);
     end;
 
     /// <summary>
-    /// List Containers in specific Storage Account
+    /// List all Containers in specific Storage Account
     /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/list-containers2
     /// </summary>
-    /// <param name="StorageAccountName">The Storage Account to connect to.</param>
-    /// <param name="Authorization">Contains information with Authorization to use for authentication.</param>
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
     /// <param name="BlobStorageContainer">Collection of the result (temporary record).</param>
     /// <param name="ShowOutput">Determines if the result should be shown as a Page to the user.</param>
-    procedure ListContainers(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; var BlobStorageContainer: Record "AZBSA Container"; ShowOutput: Boolean)
+    procedure ListContainers(RequestObject: Codeunit "AZBSA Request Object"; var BlobStorageContainer: Record "AZBSA Container"; ShowOutput: Boolean)
     var
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
         HelperLibrary: Codeunit "AZBSA Helper Library";
         Operation: Enum "AZBSA Blob Storage Operation";
         ResponseText: Text;
-        Url: Text;
         NodeList: XmlNodeList;
     begin
-        Url := HelperLibrary.ConstructUrl(StorageAccountName, RequestObject, Operation::ListContainers, '', '');
+        RequestObject.SetOperation(Operation::ListContainers);
 
-        WebRequestHelper.GetResponseAsText(Url, StorageAccountName, RequestObject, ResponseText); // might throw error
+        WebRequestHelper.GetResponseAsText(RequestObject, ResponseText); // might throw error
 
         NodeList := HelperLibrary.CreateContainerNodeListFromResponse(ResponseText);
-        BlobStorageContainer.SetBaseInfos(StorageAccountName, '', RequestObject);
+        BlobStorageContainer.SetBaseInfos(RequestObject);
         HelperLibrary.ContainerNodeListTotempRecord(NodeList, BlobStorageContainer);
         if ShowOutput then
             HelperLibrary.ShowTempRecordLookup(BlobStorageContainer);
@@ -94,52 +88,48 @@ codeunit 89000 "AZBSA Blob Storage API"
     // #region (GET) List Container Contents
     /// <summary>
     /// Lists the Blobs in a specific container and outputs the result to the user
+    /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/list-blobs
     /// </summary>
-    /// <param name="StorageAccountName">The Storage Account to connect to.</param>
-    /// <param name="Authorization">Contains information with Authorization to use for authentication.</param>
-    /// <param name="ContainerName">The Name of the Container which contents should be listed.</param>
-    procedure ListBlobs(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; ContainerName: Text[50])
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>    
+    procedure ListBlobs(RequestObject: Codeunit "AZBSA Request Object")
     begin
-        ListBlobs(StorageAccountName, RequestObject, ContainerName, true);
+        ListBlobs(RequestObject, true);
     end;
 
     /// <summary>
     /// Lists the Blobs in a specific container
+    /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/list-blobs
     /// </summary>
-    /// <param name="StorageAccountName">The Storage Account to connect to.</param>
-    /// <param name="Authorization">Contains information with Authorization to use for authentication.</param>
-    /// <param name="ContainerName">The Name of the Container which contents should be listed.</param>
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>    
     /// <param name="ShowOutput">Determines if the result should be shown as a Page to the user.</param>
-    procedure ListBlobs(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; ContainerName: Text[50]; ShowOutput: Boolean)
+    procedure ListBlobs(RequestObject: Codeunit "AZBSA Request Object"; ShowOutput: Boolean)
     var
         BlobStorageContent: Record "AZBSA Container Content";
     begin
-        ListBlobs(StorageAccountName, RequestObject, ContainerName, BlobStorageContent, ShowOutput);
+        ListBlobs(RequestObject, BlobStorageContent, ShowOutput);
     end;
 
     /// <summary>
     /// Lists the Blobs in a specific container
+    /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/list-blobs
     /// </summary>
-    /// <param name="StorageAccountName">The Storage Account to connect to.</param>
-    /// <param name="Authorization">Contains information with Authorization to use for authentication.</param>
-    /// <param name="ContainerName">The Name of the Container which contents should be listed.</param>
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>    
     /// <param name="BlobStorageContent">Collection of the result (temporary record).</param>
     /// <param name="ShowOutput">Determines if the result should be shown as a Page to the user.</param>
-    procedure ListBlobs(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; ContainerName: Text; var BlobStorageContent: Record "AZBSA Container Content"; ShowOutput: Boolean)
+    procedure ListBlobs(RequestObject: Codeunit "AZBSA Request Object"; var BlobStorageContent: Record "AZBSA Container Content"; ShowOutput: Boolean)
     var
         HelperLibrary: Codeunit "AZBSA Helper Library";
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
         Operation: Enum "AZBSA Blob Storage Operation";
         ResponseText: Text;
-        Url: Text;
         NodeList: XmlNodeList;
     begin
-        Url := HelperLibrary.ConstructUrl(StorageAccountName, RequestObject, Operation::ListContainerContents, ContainerName, '');
+        RequestObject.SetOperation(Operation::ListContainerContents);
 
-        WebRequestHelper.GetResponseAsText(Url, StorageAccountName, RequestObject, ResponseText); // might throw error
+        WebRequestHelper.GetResponseAsText(RequestObject, ResponseText); // might throw error
 
         NodeList := HelperLibrary.CreateBlobNodeListFromResponse(ResponseText);
-        BlobStorageContent.SetBaseInfos(StorageAccountName, ContainerName, RequestObject);
+        BlobStorageContent.SetBaseInfos(RequestObject);
         HelperLibrary.BlobNodeListToTempRecord(NodeList, BlobStorageContent);
         if ShowOutput then
             HelperLibrary.ShowTempRecordLookup(BlobStorageContent);
@@ -147,43 +137,61 @@ codeunit 89000 "AZBSA Blob Storage API"
     // #endregion (GET) ListContainerContents
 
     // #region (PUT) Upload Blob into Container
-    procedure UploadBlobIntoContainerUI(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; ContainerName: Text)
+    /// <summary>
+    /// Uploads (PUT) a File to a Container (with File Selection Dialog)
+    /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/put-blob
+    /// </summary>
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>    
+    procedure UploadBlobIntoContainerUI(RequestObject: Codeunit "AZBSA Request Object")
     var
         Filename: Text;
         SourceStream: InStream;
     begin
         if UploadIntoStream('Upload File', '', '', Filename, SourceStream) then
-            UploadBlobIntoContainerStream(StorageAccountName, RequestObject, ContainerName, Filename, SourceStream);
+            UploadBlobIntoContainerStream(RequestObject, Filename, SourceStream);
     end;
 
-    procedure UploadBlobIntoContainerStream(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; ContainerName: Text; Filename: Text; var SourceStream: InStream)
+    /// <summary>
+    /// Uploads (PUT) the content of an InStream to a Container
+    /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/put-blob
+    /// </summary>
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
+    /// <param name="BlobName">The Name of the Blob to Upload.</param>
+    /// <param name="SourceStream">The Content of the Blob as InStream.</param>
+    procedure UploadBlobIntoContainerStream(RequestObject: Codeunit "AZBSA Request Object"; BlobName: Text; var SourceStream: InStream)
     var
         SourceContent: Variant;
     begin
         SourceContent := SourceStream;
-        UploadBlobIntoContainer(StorageAccountName, RequestObject, ContainerName, Filename, SourceContent);
+        RequestObject.SetBlobName(BlobName);
+        UploadBlobIntoContainer(RequestObject, SourceContent);
     end;
 
-    procedure UploadBlobIntoContainerText(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; ContainerName: Text; Filename: Text; var SourceText: Text)
+    /// <summary>
+    /// Uploads (PUT) the content of a Text-Variable to a Container
+    /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/put-blob
+    /// </summary>
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
+    /// <param name="BlobName">The Name of the Blob to Upload.</param>
+    /// <param name="SourceText">The Content of the Blob as Text.</param>
+    procedure UploadBlobIntoContainerText(RequestObject: Codeunit "AZBSA Request Object"; BlobName: Text; var SourceText: Text)
     var
         SourceContent: Variant;
     begin
         SourceContent := SourceText;
-        UploadBlobIntoContainer(StorageAccountName, RequestObject, ContainerName, Filename, SourceContent);
+        RequestObject.SetBlobName(BlobName);
+        UploadBlobIntoContainer(RequestObject, SourceContent);
     end;
 
-    local procedure UploadBlobIntoContainer(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; ContainerName: Text; BlobName: Text; var SourceContent: Variant)
+    local procedure UploadBlobIntoContainer(RequestObject: Codeunit "AZBSA Request Object"; var SourceContent: Variant)
     var
-        HelperLibrary: Codeunit "AZBSA Helper Library";
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
         Operation: Enum "AZBSA Blob Storage Operation";
-        Url: Text;
         Content: HttpContent;
         SourceStream: InStream;
         SourceText: Text;
-        OperationNotSuccessfulErr: Label 'Could not upload %1 to %2', Comment = '%1 = Blob Name; %2 = Container Name';
     begin
-        Url := HelperLibrary.ConstructUrl(StorageAccountName, RequestObject, Operation::PutBlob, ContainerName, BlobName);
+        RequestObject.SetOperation(Operation::PutBlob);
 
         case true of
             SourceContent.IsInStream():
@@ -198,55 +206,74 @@ codeunit 89000 "AZBSA Blob Storage API"
                 end;
         end;
 
-        WebRequestHelper.PutOperation(Url, StorageAccountName, RequestObject, Content, StrSubstNo(OperationNotSuccessfulErr, BlobName, ContainerName));
+        WebRequestHelper.PutOperation(RequestObject, Content, StrSubstNo(UploadBlobOperationNotSuccessfulErr, RequestObject.GetBlobName(), RequestObject.GetContainerName()));
     end;
     // #endregion
 
     // #region (GET) Get Blob from Container
-    procedure DownloadBlobAsFileWithSelect(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; ContainerName: Text)
+    /// <summary>
+    /// Downloads (GET) a Blob as a File from a Container; shows a Lookup of existing Blobs to select from
+    /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/put-blob
+    /// </summary>
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
+    procedure DownloadBlobAsFileWithSelect(RequestObject: Codeunit "AZBSA Request Object")
     var
         BlobStorageContent: Record "AZBSA Container Content";
         HelperLibrary: Codeunit "AZBSA Helper Library";
         BlobName: Text;
     begin
         // Get list of available blobs
-        ListBlobs(StorageAccountName, RequestObject, ContainerName, BlobStorageContent, false);
+        ListBlobs(RequestObject, BlobStorageContent, false);
         // Show Lookup Page to select Blob to download
         BlobName := HelperLibrary.LookupContainerContent(BlobStorageContent);
         // Download Blob
-        DownloadBlobAsFile(StorageAccountName, RequestObject, ContainerName, BlobName);
+        RequestObject.SetBlobName(BlobName);
+        DownloadBlobAsFile(RequestObject);
     end;
 
-    procedure DownloadBlobAsFile(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; ContainerName: Text; BlobName: Text)
+    /// <summary>
+    /// Downloads (GET) a Blob as a File from a Container
+    /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/put-blob
+    /// </summary>
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
+    procedure DownloadBlobAsFile(RequestObject: Codeunit "AZBSA Request Object")
     var
+        BlobName: Text;
         TargetStream: InStream;
     begin
-        DownloadBlobAsStream(StorageAccountName, RequestObject, ContainerName, BlobName, TargetStream);
+        DownloadBlobAsStream(RequestObject, TargetStream);
+        BlobName := RequestObject.GetBlobName();
         DownloadFromStream(TargetStream, '', '', '', BlobName);
     end;
 
-    procedure DownloadBlobAsStream(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; ContainerName: Text; BlobName: Text; var TargetStream: InStream)
+    /// <summary>
+    /// Downloads (GET) a Blob as a InStream from a Container
+    /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/put-blob
+    /// </summary>
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
+    /// <param name="TargetStream">The result InStream containg the content of the Blob.</param>
+    procedure DownloadBlobAsStream(RequestObject: Codeunit "AZBSA Request Object"; var TargetStream: InStream)
     var
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
-        HelperLibrary: Codeunit "AZBSA Helper Library";
         Operation: Enum "AZBSA Blob Storage Operation";
-        Url: Text;
     begin
-        Url := HelperLibrary.ConstructUrl(StorageAccountName, RequestObject, Operation::GetBlob, ContainerName, BlobName);
-
-        WebRequestHelper.GetResponseAsStream(Url, StorageAccountName, RequestObject, TargetStream);
+        RequestObject.SetOperation(Operation::GetBlob);
+        WebRequestHelper.GetResponseAsStream(RequestObject, TargetStream);
     end;
 
-    procedure DownloadBlobAsText(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; ContainerName: Text; BlobName: Text; var TargetText: Text)
+    /// <summary>
+    /// Downloads (GET) a Blob as Text from a Container
+    /// see: https://docs.microsoft.com/en-us/rest/api/storageservices/put-blob
+    /// </summary>
+    /// <param name="RequestObject">A Request Object containing the necessary parameters for the request.</param>
+    /// <param name="TargetText">The result Text containg the content of the Blob.</param>
+    procedure DownloadBlobAsText(RequestObject: Codeunit "AZBSA Request Object"; var TargetText: Text)
     var
         WebRequestHelper: Codeunit "AZBSA Web Request Helper";
-        HelperLibrary: Codeunit "AZBSA Helper Library";
         Operation: Enum "AZBSA Blob Storage Operation";
-        Url: Text;
     begin
-        Url := HelperLibrary.ConstructUrl(StorageAccountName, RequestObject, Operation::GetBlob, ContainerName, BlobName);
-
-        WebRequestHelper.GetResponseAsText(Url, StorageAccountName, RequestObject, TargetText);
+        RequestObject.SetOperation(Operation::GetBlob);
+        WebRequestHelper.GetResponseAsText(RequestObject, TargetText);
     end;
     // #endregion
 

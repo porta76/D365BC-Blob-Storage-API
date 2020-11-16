@@ -70,6 +70,13 @@ table 89001 "AZBSA Container"
         StorageAccountName: Text;
         ContainerName: Text;
 
+    procedure SetBaseInfos(NewRequestObject: Codeunit "AZBSA Request Object")
+    begin
+        StorageAccountName := RequestObject.GetStorageAccountName();
+        ContainerName := RequestObject.GetContainerName();
+        RequestObject := NewRequestObject;
+    end;
+
     procedure SetBaseInfos(NewStorageAccountName: Text; NewContainerName: Text; NewRequestObject: Codeunit "AZBSA Request Object")
     begin
         StorageAccountName := NewStorageAccountName;
