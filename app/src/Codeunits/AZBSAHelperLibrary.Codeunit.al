@@ -150,7 +150,7 @@ codeunit 89002 "AZBSA Helper Library"
     // #endregion
 
     // #region URL Helper 
-    procedure ConstructUrl(StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization"; Operation: Enum "AZBSA Blob Storage Operation"; ContainerName: Text; BlobName: Text): Text
+    procedure ConstructUrl(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; Operation: Enum "AZBSA Blob Storage Operation"; ContainerName: Text; BlobName: Text): Text
     var
         AuthorizationType: Enum "AZBSA Authorization Type";
         ConstructedUrl: Text;
@@ -159,7 +159,7 @@ codeunit 89002 "AZBSA Helper Library"
         ListContainerExtensionLbl: Label '&comp=list', Comment = '%1 = Base URL; %2 = Container Name ; %3 = SaS Token';
         SingleBlobInContainerLbl: Label '%1/%2/%3', Comment = '%1 = Base URL; %2 = Container Name ; %3 = Blob Name ; %4 = SaS Token';
     begin
-        TestConstructUrlParameter(StorageAccountName, Authorization, Operation, ContainerName, BlobName);
+        TestConstructUrlParameter(StorageAccountName, RequestObject, Operation, ContainerName, BlobName);
 
         ConstructedUrl := StrSubstNo(BlobStorageBaseUrlLbl, StorageAccountName);
         case Operation of
@@ -174,11 +174,11 @@ codeunit 89002 "AZBSA Helper Library"
         end;
 
         // If SaS-Token is used for authentication, append it to the URI
-        if Authorization.GetAuthorizationType() = AuthorizationType::SasToken then
+        if RequestObject.GetAuthorizationType() = AuthorizationType::SasToken then
             if ConstructedUrl.Contains('?') then
-                ConstructedUrl += '&' + Authorization.GetSecret()
+                ConstructedUrl += '&' + RequestObject.GetSecret()
             else
-                ConstructedUrl += '?' + Authorization.GetSecret();
+                ConstructedUrl += '?' + RequestObject.GetSecret();
         exit(ConstructedUrl);
     end;
 
@@ -190,7 +190,7 @@ codeunit 89002 "AZBSA Helper Library"
     /// <param name="Operation">The type of the Operation. Mandatory.</param>
     /// <param name="ContainerName">The name of the container to access. Mandatory for all container- and BLOB-specific operations.</param>
     /// <param name="BlobName">The name of the BLOB. Mandatory for all BLOB-specific operations</param>
-    local procedure TestConstructUrlParameter(StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization"; Operation: Enum "AZBSA Blob Storage Operation"; ContainerName: Text; BlobName: Text)
+    local procedure TestConstructUrlParameter(StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; Operation: Enum "AZBSA Blob Storage Operation"; ContainerName: Text; BlobName: Text)
     var
         AuthorizationType: Enum "AZBSA Authorization Type";
         ValueCanNotBeEmptyErr: Label '%1 can not be empty', Comment = '%1 = Variable Name';
@@ -203,12 +203,12 @@ codeunit 89002 "AZBSA Helper Library"
         if StorageAccountName = '' then
             Error(ValueCanNotBeEmptyErr, StorageAccountNameLbl);
 
-        case Authorization.GetAuthorizationType() of
+        case RequestObject.GetAuthorizationType() of
             AuthorizationType::SasToken:
-                if Authorization.GetSecret() = '' then
+                if RequestObject.GetSecret() = '' then
                     Error(ValueCanNotBeEmptyErr, SasTokenLbl);
             AuthorizationType::SharedKey:
-                if Authorization.GetSecret() = '' then
+                if RequestObject.GetSecret() = '' then
                     Error(ValueCanNotBeEmptyErr, AccesKeyLbl);
         end;
 

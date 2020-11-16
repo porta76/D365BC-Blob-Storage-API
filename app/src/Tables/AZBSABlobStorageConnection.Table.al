@@ -88,69 +88,87 @@ table 89000 "AZBSA Blob Storage Connection"
     procedure ListContainers()
     var
         API: Codeunit "AZBSA Blob Storage API";
-        Authorization: Codeunit "AZBSA Authorization";
+        RequestObject: Codeunit "AZBSA Request Object";
     begin
-        Rec.InitializeAuthorization(Authorization);
-        API.ListContainers(Rec."Storage Account Name", Authorization);
+        Rec.InitializeAuthorization(RequestObject);
+        API.ListContainers(Rec."Storage Account Name", RequestObject);
     end;
 
     procedure ListContentSource()
     var
         API: Codeunit "AZBSA Blob Storage API";
-        Authorization: Codeunit "AZBSA Authorization";
+        RequestObject: Codeunit "AZBSA Request Object";
     begin
-        Rec.InitializeAuthorization(Authorization);
-        API.ListBlobs(Rec."Storage Account Name", Authorization, Rec."Source Container Name");
+        Rec.InitializeAuthorization(RequestObject);
+        API.ListBlobs(Rec."Storage Account Name", RequestObject, Rec."Source Container Name");
     end;
 
-    procedure ListContentDestination()
+    procedure ListContentTarget()
     var
         API: Codeunit "AZBSA Blob Storage API";
-        Authorization: Codeunit "AZBSA Authorization";
+        RequestObject: Codeunit "AZBSA Request Object";
     begin
-        Rec.InitializeAuthorization(Authorization);
-        API.ListBlobs(Rec."Storage Account Name", Authorization, Rec."Target Container Name");
+        Rec.InitializeAuthorization(RequestObject);
+        API.ListBlobs(Rec."Storage Account Name", RequestObject, Rec."Target Container Name");
     end;
 
     procedure CreateSourceContainer()
     var
         API: Codeunit "AZBSA Blob Storage API";
-        Authorization: Codeunit "AZBSA Authorization";
+        RequestObject: Codeunit "AZBSA Request Object";
     begin
-        Rec.InitializeAuthorization(Authorization);
-        API.CreateContainer(Rec."Storage Account Name", Rec."Source Container Name", Authorization);
+        Rec.InitializeAuthorization(RequestObject);
+        API.CreateContainer(Rec."Storage Account Name", Rec."Source Container Name", RequestObject);
     end;
 
-    procedure CreateDestinationContainer()
+    procedure CreateTargetContainer()
     var
         API: Codeunit "AZBSA Blob Storage API";
-        Authorization: Codeunit "AZBSA Authorization";
+        RequestObject: Codeunit "AZBSA Request Object";
     begin
-        Rec.InitializeAuthorization(Authorization);
-        API.CreateContainer(Rec."Storage Account Name", Rec."Target Container Name", Authorization);
+        Rec.InitializeAuthorization(RequestObject);
+        API.CreateContainer(Rec."Storage Account Name", Rec."Target Container Name", RequestObject);
+    end;
+
+    procedure DeleteSourceContainer()
+    var
+        API: Codeunit "AZBSA Blob Storage API";
+        RequestObject: Codeunit "AZBSA Request Object";
+    begin
+        Rec.InitializeAuthorization(RequestObject);
+        // TODO: API.DeleteContainer(Rec."Storage Account Name", Rec."Source Container Name", RequestObject);
+    end;
+
+    procedure DeleteTargetContainer()
+    var
+        API: Codeunit "AZBSA Blob Storage API";
+        RequestObject: Codeunit "AZBSA Request Object";
+    begin
+        Rec.InitializeAuthorization(RequestObject);
+        // TODO: API.DeleteContainer(Rec."Storage Account Name", Rec."Source Container Name", RequestObject);
     end;
 
     procedure UploadFileUI(ContainerName: Text)
     var
         API: Codeunit "AZBSA Blob Storage API";
-        Authorization: Codeunit "AZBSA Authorization";
+        RequestObject: Codeunit "AZBSA Request Object";
     begin
-        Rec.InitializeAuthorization(Authorization);
-        API.UploadBlobIntoContainerUI(Rec."Storage Account Name", Authorization, ContainerName);
+        Rec.InitializeAuthorization(RequestObject);
+        API.UploadBlobIntoContainerUI(Rec."Storage Account Name", RequestObject, ContainerName);
     end;
 
     procedure DownloadFileUI(ContainerName: Text)
     var
         API: Codeunit "AZBSA Blob Storage API";
-        Authorization: Codeunit "AZBSA Authorization";
+        RequestObject: Codeunit "AZBSA Request Object";
     begin
-        Rec.InitializeAuthorization(Authorization);
-        API.DownloadBlobAsFileWithSelect(Rec."Storage Account Name", Authorization, ContainerName);
+        Rec.InitializeAuthorization(RequestObject);
+        API.DownloadBlobAsFileWithSelect(Rec."Storage Account Name", RequestObject, ContainerName);
     end;
 
-    procedure InitializeAuthorization(var Authorization: Codeunit "AZBSA Authorization")
+    procedure InitializeAuthorization(var RequestObject: Codeunit "AZBSA Request Object")
     begin
-        Authorization.SetAuthorizationType(Rec."Authorization Type");
-        Authorization.SetSecret(Rec.Secret);
+        RequestObject.SetAuthorizationType(Rec."Authorization Type");
+        RequestObject.SetSecret(Rec.Secret);
     end;
 }

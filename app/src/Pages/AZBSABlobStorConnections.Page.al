@@ -90,16 +90,16 @@ page 89000 "AZBSA Blob Stor. Connections"
                     end;
                 }
 
-                action(TestListDestination)
+                action(TestListTarget)
                 {
                     ApplicationArea = All;
-                    Caption = 'List Contents of Destination';
+                    Caption = 'List Contents of Target';
                     Image = LaunchWeb;
-                    ToolTip = 'List all files in the Destination Container';
+                    ToolTip = 'List all files in the Target Container';
 
                     trigger OnAction();
                     begin
-                        Rec.ListContentDestination();
+                        Rec.ListContentTarget();
                     end;
                 }
             }
@@ -121,16 +121,46 @@ page 89000 "AZBSA Blob Stor. Connections"
                     end;
                 }
 
-                action(TestCreateDestinationContainer)
+                action(TestCreateTargetContainer)
                 {
                     ApplicationArea = All;
-                    Caption = 'Create Destination Container';
+                    Caption = 'Create Target Container';
                     Image = LaunchWeb;
-                    ToolTip = 'Create the Container (specified in "Destination Container Name") in the Storage Account';
+                    ToolTip = 'Create the Container (specified in "Target Container Name") in the Storage Account';
 
                     trigger OnAction();
                     begin
-                        Rec.CreateDestinationContainer();
+                        Rec.CreateTargetContainer();
+                    end;
+                }
+            }
+            group(DeleteContainers)
+            {
+                Caption = 'Create Containers';
+
+                action(TestDeleteSourceContainer)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delete Source Container';
+                    Image = LaunchWeb;
+                    ToolTip = 'Delete the Container (specified in "Source Container Name") in the Storage Account';
+
+                    trigger OnAction();
+                    begin
+                        Rec.DeleteSourceContainer();
+                    end;
+                }
+
+                action(TestDeleteTargetContainer)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delete Target Container';
+                    Image = LaunchWeb;
+                    ToolTip = 'Delete the Container (specified in "Target Container Name") in the Storage Account';
+
+                    trigger OnAction();
+                    begin
+                        Rec.DeleteTargetContainer();
                     end;
                 }
             }

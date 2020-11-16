@@ -3,7 +3,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 // ------------------------------------------------------------------------------------------------
 
-codeunit 89001 "AZBSA Authorization"
+codeunit 89001 "AZBSA Request Object"
 {
     trigger OnRun()
     begin
@@ -81,6 +81,7 @@ codeunit 89001 "AZBSA Authorization"
         FormatHelper: Codeunit "AZBSA Format Helper";
         StringToSign: Text;
     begin
+        // TODO: Add Handling-structure for different API-versions
         StringToSign += Format(HttpRequestType) + FormatHelper.GetNewLineCharacter();
         StringToSign += GetHeaderValueOrEmpty('Content-Encoding') + FormatHelper.GetNewLineCharacter(); // Content-Encoding
         StringToSign += GetHeaderValueOrEmpty('Content-Language') + FormatHelper.GetNewLineCharacter(); // Content-Language

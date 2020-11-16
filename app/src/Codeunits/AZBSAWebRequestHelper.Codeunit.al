@@ -19,12 +19,12 @@ codeunit 89004 "AZBSA Web Request Helper"
     /// </summary>
     /// <param name="Url">The URL to perform the GET-request against.</param>
     /// <param name="Response">The result of the GET-request as Text-object (by reference).</param>
-    procedure GetResponseAsText(Url: Text; StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization"; var ResponseText: Text)
+    procedure GetResponseAsText(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; var ResponseText: Text)
     var
         Response: HttpResponseMessage;
         ReadResponseFailedErr: Label 'Could not read response.';
     begin
-        GetResponse(Url, StorageAccountName, Authorization, Response);
+        GetResponse(Url, StorageAccountName, RequestObject, Response);
 
         if not Response.Content.ReadAs(ResponseText) then
             Error(ReadResponseFailedErr);
@@ -35,12 +35,12 @@ codeunit 89004 "AZBSA Web Request Helper"
     /// </summary>
     /// <param name="Url">The URL to perform the GET-request against.</param>
     /// <param name="Response">The result of the GET-request as InStream-object (by reference).</param>
-    procedure GetResponseAsStream(Url: Text; StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization"; var Stream: InStream)
+    procedure GetResponseAsStream(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; var Stream: InStream)
     var
         Response: HttpResponseMessage;
         ReadResponseFailedErr: Label 'Could not read response.';
     begin
-        GetResponse(Url, StorageAccountName, Authorization, Response);
+        GetResponse(Url, StorageAccountName, RequestObject, Response);
 
         if not Response.Content.ReadAs(Stream) then
             Error(ReadResponseFailedErr);
@@ -51,14 +51,14 @@ codeunit 89004 "AZBSA Web Request Helper"
     /// </summary>
     /// <param name="Url">The URL to perform the GET-request against.</param>
     /// <param name="Response">The result of the GET-request as HttpResponseMessage (by reference).</param>
-    local procedure GetResponse(Url: Text; StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization"; var Response: HttpResponseMessage)
+    local procedure GetResponse(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; var Response: HttpResponseMessage)
     var
         FormatHelper: Codeunit "AZBSA Format Helper";
         Client: HttpClient;
         HttpRequestType: Enum "Http Request Type";
         IntitialGetFailedErr: Label 'Could not connect to %1.\\Response Code: %2 %3', Comment = '%1 = Base URL; %2 = Status Code; %3 = Reason Phrase';
     begin
-        HandleAuthorizationHeaders(HttpRequestType::GET, StorageAccountName, Url, Client, Authorization);
+        HandleAuthorizationHeaders(HttpRequestType::GET, StorageAccountName, Url, Client, RequestObject);
 
         if not Client.Get(Url, Response) then
             Error(IntitialGetFailedErr, Url, Response.HttpStatusCode, Response.ReasonPhrase);
@@ -68,28 +68,28 @@ codeunit 89004 "AZBSA Web Request Helper"
     // #endregion GET-Request
 
     // #region PUT-Request
-    procedure PutOperation(Url: Text; StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization"; OperationNotSuccessfulErr: Text)
+    procedure PutOperation(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; OperationNotSuccessfulErr: Text)
     var
         Content: HttpContent;
     begin
-        PutOperation(Url, StorageAccountName, Authorization, Content, OperationNotSuccessfulErr);
+        PutOperation(Url, StorageAccountName, RequestObject, Content, OperationNotSuccessfulErr);
     end;
 
-    procedure PutOperation(Url: Text; StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization"; Content: HttpContent; OperationNotSuccessfulErr: Text)
+    procedure PutOperation(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; Content: HttpContent; OperationNotSuccessfulErr: Text)
     var
         Response: HttpResponseMessage;
     begin
-        PutOperation(Url, StorageAccountName, Authorization, Content, Response, OperationNotSuccessfulErr);
+        PutOperation(Url, StorageAccountName, RequestObject, Content, Response, OperationNotSuccessfulErr);
     end;
 
-    local procedure PutOperation(Url: Text; StorageAccountName: Text; Authorization: Codeunit "AZBSA Authorization"; Content: HttpContent; var Response: HttpResponseMessage; OperationNotSuccessfulErr: Text)
+    local procedure PutOperation(Url: Text; StorageAccountName: Text; RequestObject: Codeunit "AZBSA Request Object"; Content: HttpContent; var Response: HttpResponseMessage; OperationNotSuccessfulErr: Text)
     var
         Client: HttpClient;
         HttpRequestType: Enum "Http Request Type";
         RequestMsg: HttpRequestMessage;
         HttpResponseInfoErr: Label '%1.\\Response Code: %2 %3', Comment = '%1 = Default Error Message ; %2 = Status Code; %3 = Reason Phrase';
     begin
-        HandleAuthorizationHeaders(HttpRequestType::PUT, StorageAccountName, Url, Client, Authorization);
+        HandleAuthorizationHeaders(HttpRequestType::PUT, StorageAccountName, Url, Client, RequestObject);
         // Prepare HttpRequestMessage
         RequestMsg.Method(Format(HttpRequestType::PUT));
         if ContentSet(Content) then
@@ -114,36 +114,36 @@ codeunit 89004 "AZBSA Web Request Helper"
     // #endregion PUT-Request
 
     // #region HTTP Header Helper
-    procedure AddBlobPutBlockBlobContentHeaders(var Content: HttpContent; Authorization: Codeunit "AZBSA Authorization"; var SourceStream: InStream)
+    procedure AddBlobPutBlockBlobContentHeaders(var Content: HttpContent; RequestObject: Codeunit "AZBSA Request Object"; var SourceStream: InStream)
     var
         BlobType: Enum "AZBSA Blob Type";
     begin
-        AddBlobPutContentHeaders(Content, Authorization, SourceStream, BlobType::BlockBlob)
+        AddBlobPutContentHeaders(Content, RequestObject, SourceStream, BlobType::BlockBlob)
     end;
 
-    procedure AddBlobPutBlockBlobContentHeaders(var Content: HttpContent; Authorization: Codeunit "AZBSA Authorization"; var SourceText: Text)
+    procedure AddBlobPutBlockBlobContentHeaders(var Content: HttpContent; RequestObject: Codeunit "AZBSA Request Object"; var SourceText: Text)
     var
         BlobType: Enum "AZBSA Blob Type";
     begin
-        AddBlobPutContentHeaders(Content, Authorization, SourceText, BlobType::BlockBlob)
+        AddBlobPutContentHeaders(Content, RequestObject, SourceText, BlobType::BlockBlob)
     end;
 
     /*
-    procedure AddBlobPutPageBlobContentHeaders(var Content: HttpContent; Authorization: Codeunit "AZBSA Authorization"; var SourceStream: InStream)
+    procedure AddBlobPutPageBlobContentHeaders(var Content: HttpContent; RequestObject: Codeunit "AZBSA Request Object"; var SourceStream: InStream)
     var
         BlobType: Enum "AZBSA Blob Type";
     begin
-        AddBlobPutContentHeaders(Content, Authorization, SourceStream, BlobType::PageBlob)
+        AddBlobPutContentHeaders(Content, RequestObject, SourceStream, BlobType::PageBlob)
     end;
     */
-    procedure AddBlobPutAppendBlobContentHeaders(var Content: HttpContent; Authorization: Codeunit "AZBSA Authorization"; var SourceStream: InStream)
+    procedure AddBlobPutAppendBlobContentHeaders(var Content: HttpContent; RequestObject: Codeunit "AZBSA Request Object"; var SourceStream: InStream)
     var
         BlobType: Enum "AZBSA Blob Type";
     begin
-        AddBlobPutContentHeaders(Content, Authorization, SourceStream, BlobType::AppendBlob)
+        AddBlobPutContentHeaders(Content, RequestObject, SourceStream, BlobType::AppendBlob)
     end;
 
-    local procedure AddBlobPutContentHeaders(var Content: HttpContent; Authorization: Codeunit "AZBSA Authorization"; var SourceStream: InStream; BlobType: Enum "AZBSA Blob Type")
+    local procedure AddBlobPutContentHeaders(var Content: HttpContent; RequestObject: Codeunit "AZBSA Request Object"; var SourceStream: InStream; BlobType: Enum "AZBSA Blob Type")
     var
         Length: Integer;
     begin
@@ -152,10 +152,10 @@ codeunit 89004 "AZBSA Web Request Helper"
 
         Length := GetStreamLength(SourceStream);
 
-        AddBlobPutContentHeaders(Content, Authorization, BlobType, Length, 'application/octet-stream');
+        AddBlobPutContentHeaders(Content, RequestObject, BlobType, Length, 'application/octet-stream');
     end;
 
-    local procedure AddBlobPutContentHeaders(var Content: HttpContent; Authorization: Codeunit "AZBSA Authorization"; var SourceText: Text; BlobType: Enum "AZBSA Blob Type")
+    local procedure AddBlobPutContentHeaders(var Content: HttpContent; RequestObject: Codeunit "AZBSA Request Object"; var SourceText: Text; BlobType: Enum "AZBSA Blob Type")
     var
         Length: Integer;
     begin
@@ -164,43 +164,43 @@ codeunit 89004 "AZBSA Web Request Helper"
 
         Length := StrLen(SourceText);
 
-        AddBlobPutContentHeaders(Content, Authorization, BlobType, Length, 'text/plain; charset=UTF-8');
+        AddBlobPutContentHeaders(Content, RequestObject, BlobType, Length, 'text/plain; charset=UTF-8');
     end;
 
-    local procedure AddBlobPutContentHeaders(var Content: HttpContent; Authorization: Codeunit "AZBSA Authorization"; BlobType: Enum "AZBSA Blob Type"; ContentLength: Integer; ContentType: Text)
+    local procedure AddBlobPutContentHeaders(var Content: HttpContent; RequestObject: Codeunit "AZBSA Request Object"; BlobType: Enum "AZBSA Blob Type"; ContentLength: Integer; ContentType: Text)
     var
         Headers: HttpHeaders;
     begin
         if ContentType = '' then
             ContentType := 'application/octet-stream';
         Content.GetHeaders(Headers);
-        Authorization.AddHeader(Headers, 'Content-Type', ContentType);
+        RequestObject.AddHeader(Headers, 'Content-Type', ContentType);
         case BlobType of
             BlobType::PageBlob:
                 begin
-                    Authorization.AddHeader(Headers, 'x-ms-blob-content-length', StrSubstNo(ContentLengthLbl, ContentLength));
-                    Authorization.AddHeader(Headers, 'Content-Length', StrSubstNo(ContentLengthLbl, 0));
+                    RequestObject.AddHeader(Headers, 'x-ms-blob-content-length', StrSubstNo(ContentLengthLbl, ContentLength));
+                    RequestObject.AddHeader(Headers, 'Content-Length', StrSubstNo(ContentLengthLbl, 0));
                 end;
             else
-                Authorization.AddHeader(Headers, 'Content-Length', StrSubstNo(ContentLengthLbl, ContentLength));
+                RequestObject.AddHeader(Headers, 'Content-Length', StrSubstNo(ContentLengthLbl, ContentLength));
         end;
-        Authorization.AddHeader(Headers, 'x-ms-blob-type', Format(BlobType));
+        RequestObject.AddHeader(Headers, 'x-ms-blob-type', Format(BlobType));
     end;
 
-    local procedure HandleAuthorizationHeaders(HttpRequestType: Enum "Http Request Type"; StorageAccountName: Text; Url: Text; var Client: HttpClient; var Authorization: Codeunit "AZBSA Authorization")
+    local procedure HandleAuthorizationHeaders(HttpRequestType: Enum "Http Request Type"; StorageAccountName: Text; Url: Text; var Client: HttpClient; var RequestObject: Codeunit "AZBSA Request Object")
     var
         FormatHelper: Codeunit "AZBSA Format Helper";
         UsedDateTimeText: Text;
         AuthType: enum "AZBSA Authorization Type";
         Headers: HttpHeaders;
     begin
-        if Authorization.GetAuthorizationType() = AuthType::SasToken then
+        if RequestObject.GetAuthorizationType() = AuthType::SasToken then
             exit;
         UsedDateTimeText := FormatHelper.GetRfc1123DateTime();
         Headers := Client.DefaultRequestHeaders;
-        Authorization.AddHeader(Headers, 'x-ms-date', UsedDateTimeText);
-        Authorization.AddHeader(Headers, 'x-ms-version', Format(Authorization.GetApiVersion()));
-        Authorization.AddHeader(Headers, 'Authorization', Authorization.GetSharedKeySignature(HttpRequestType, StorageAccountName, Url));
+        RequestObject.AddHeader(Headers, 'x-ms-date', UsedDateTimeText);
+        RequestObject.AddHeader(Headers, 'x-ms-version', Format(RequestObject.GetApiVersion()));
+        RequestObject.AddHeader(Headers, 'Authorization', RequestObject.GetSharedKeySignature(HttpRequestType, StorageAccountName, Url));
     end;
     // #endregion
 
