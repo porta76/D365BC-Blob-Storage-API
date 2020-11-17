@@ -37,7 +37,9 @@ The result might look something like this:
 
 ![Container Content Result example](./docs/screenshot-list-container-content.png)
 
-The other actions work similar, but of course you don't need to use this via UI - you can also just 
+If you want to download a Blob from this page, just click on `Name` and it will be downloaded.
+
+The other actions work similar, but of course you don't need to use this via UI - you can also just it like in the sample code below.
 
 
 ## Usage
