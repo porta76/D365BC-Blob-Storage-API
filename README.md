@@ -90,7 +90,7 @@ The following API-calls are reproduced right now
 
 Operation | Resource Type | Status | Description
 --- | --- | --- | ---
-List Containers | Account | ✓ | `procedure ListContainers(var RequestObject: Codeunit "AZBSA Request Object")`
+List Containers | Account | ✓ | `procedure ListContainers(var RequestObject: Codeunit "AZBSA Request Object"; [var BlobStorageContainer: Record "AZBSA Container"]; [ShowOutput: Boolean])`
 Set Blob Service Properties | Account |  | 
 Get Blob Service Properties | Account |  | 
 Preflight Blob Request | Account |  | 
