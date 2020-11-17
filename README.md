@@ -37,7 +37,9 @@ The result might look something like this:
 
 ![Container Content Result example](./docs/screenshot-list-container-content.png)
 
-The other actions work similar, but of course you don't need to use this via UI - you can also just 
+If you want to download a Blob from this page, just click on `Name` and it will be downloaded.
+
+The other actions work similar, but of course you don't need to use this via UI - you can also just it like in the sample code below.
 
 
 ## Usage
@@ -88,7 +90,7 @@ The following API-calls are reproduced right now
 
 Operation | Resource Type | Status | Description
 --- | --- | --- | ---
-List Containers | Account | ✓ | `procedure ListContainers(var RequestObject: Codeunit "AZBSA Request Object")`
+List Containers | Account | ✓ | `procedure ListContainers(var RequestObject: Codeunit "AZBSA Request Object"; [var BlobStorageContainer: Record "AZBSA Container"]; [ShowOutput: Boolean])`
 Set Blob Service Properties | Account |  | 
 Get Blob Service Properties | Account |  | 
 Preflight Blob Request | Account |  | 

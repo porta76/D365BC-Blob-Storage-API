@@ -53,12 +53,15 @@ codeunit 89002 "AZBSA Helper Library"
     // #endregion
 
     procedure ShowTempRecordLookup(var BlobStorageContent: Record "AZBSA Container Content")
+    var
+        ContainerContents: Page "AZBSA Container Content";
     begin
         if BlobStorageContent.IsEmpty() then begin
             Message(ResultCollectionEmptyMsg);
             exit;
         end;
-        Page.Run(0, BlobStorageContent);
+        ContainerContents.InitializeFromTempRec(BlobStorageContent);
+        ContainerContents.Run();
     end;
 
     procedure ShowTempRecordLookup(var BlobStorageContainer: Record "AZBSA Container")
