@@ -37,6 +37,11 @@ page 89003 "AZBSA Container Content"
                 {
                     ApplicationArea = All;
                     ToolTip = 'xxx';
+
+                    trigger OnAssistEdit()
+                    begin
+                        Rec.DownloadBlob(OriginalRequestObject);
+                    end;
                 }
                 field("Creation-Time"; Rec."Creation-Time")
                 {
@@ -96,6 +101,8 @@ page 89003 "AZBSA Container Content"
             }
         }
     }
+    var
+        OriginalRequestObject: Codeunit "AZBSA Request Object";
 
     procedure AddEntry(BlobStorageContent: Record "AZBSA Container Content")
     begin
@@ -103,4 +110,16 @@ page 89003 "AZBSA Container Content"
         Rec.Insert();
     end;
 
+    procedure InitializeFromTempRec(var BlobStorageContent: Record "AZBSA Container Content")
+    begin
+        if not BlobStorageContent.FindSet(false, false) then
+            exit;
+
+        BlobStorageContent.GetRequestObject(OriginalRequestObject);
+        repeat
+            BlobStorageContent.CalcFields("XML Value");
+            Rec.TransferFields(BlobStorageContent);
+            Rec.Insert();
+        until BlobStorageContent.Next() = 0;
+    end;
 }

@@ -223,4 +223,48 @@ table 89002 "AZBSA Container Content"
             Parent := StringSplit.Get(StringSplit.Count() - 1);
         exit(CopyStr(Parent, 1, 250));
     end;
+
+    /// <summary>
+    /// The value in "Name" might be shortened (because it could be longer than 250 characters)
+    /// Use this function to retrieve the original name of the Blob (read from saved XmlNode)
+    /// </summary>
+    /// <returns></returns>
+    local procedure GetFullNameFromXML(): Text
+    var
+        HelperLibrary: Codeunit "AZBSA Helper Library";
+        Node: XmlNode;
+        NameFromXml: Text;
+    begin
+        GetXmlNodeForEntry(Node);
+        NameFromXml := HelperLibrary.GetValueFromNode(Node, './/Name');
+        exit(NameFromXml);
+    end;
+
+    local procedure GetXmlNodeForEntry(var Node: XmlNode)
+    var
+        InStr: InStream;
+        XmlAsText: Text;
+        Document: XmlDocument;
+    begin
+        Rec.CalcFields("XML Value");
+        Rec."XML Value".CreateInStream(InStr);
+        InStr.Read(XmlAsText);
+        XmlDocument.ReadFrom(XmlAsText, Document);
+        Node := Document.AsXmlNode();
+    end;
+
+    procedure GetRequestObject(var NewRequestObject: Codeunit "AZBSA Request Object")
+    begin
+        NewRequestObject := RequestObject;
+    end;
+
+    procedure DownloadBlob(OriginalRequestObject: Codeunit "AZBSA Request Object")
+    var
+        API: Codeunit "AZBSA Blob Storage API";
+        Operation: Enum "AZBSA Blob Storage Operation";
+    begin
+        OriginalRequestObject.SetOperation(Operation::GetBlob);
+        OriginalRequestObject.SetBlobName(GetFullNameFromXML());
+        API.DownloadBlobAsFile(OriginalRequestObject);
+    end;
 }
